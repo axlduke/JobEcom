@@ -1,0 +1,20 @@
+<?php 
+session_start();
+include_once '../db.php';
+    if (!isset($_SESSION['user_id'])){
+		echo '<script>window.alert("PLEASE LOGIN FIRST!!")</script>';
+		echo '<script>window.location.replace("../../form/login.php");</script>';
+	}
+
+$user = $_GET['user'];
+$job = $_GET['job'];
+$status = 'Accepted';
+$sql = "UPDATE applicants SET status = '$status' WHERE `user_id` ='$user' and job_id =$job";
+        $result = mysqli_query($conn, $sql);
+        if($result){
+            // echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            header('location: ../../job/applicants-list.php');
+            // echo "Error";
+        }
+
+?>
