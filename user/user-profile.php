@@ -111,7 +111,7 @@
                                         if($product_category > 0){
                                             if(isset($_SESSION['cart']) && is_array($_SESSION['cart'])){
                                                 if (array_key_exists($product_id, $_SESSION['cart'])){
-                                                    $_SESSION['cart'][$product_id];
+                                                    $_SESSION['cart'][$product_id]; // product id
                                                 }
                                             }
                                         }
