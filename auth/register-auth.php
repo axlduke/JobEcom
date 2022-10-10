@@ -12,6 +12,9 @@ include "db.php";
 		$mode = trim(mysqli_real_escape_string($conn, $_POST['mode']));
 		$gender = trim(mysqli_real_escape_string($conn, $_POST['gender']));
 		$type = trim(mysqli_real_escape_string($conn, $_POST['type']));
+		$location="../img/valid_info/";
+        $valid=$_FILES['valid']['name'];
+        $file_tmp1=$_FILES['valid']['tmp_name'];
 
 		$query =mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
 		if(mysqli_num_rows($query) > 0){
@@ -20,7 +23,7 @@ include "db.php";
 		}
 		else{
 
-				$query_user = "INSERT INTO `user`(`fname`, `contact`, `email`, `address`, `password`, `mode`, `gender`, `type`) VALUES ('$fname','$contact','$email','$address','$password','$mode','$gender','$type')";
+				$query_user = "INSERT INTO `user`(`fname`, `contact`, `email`, `gender`, `address`, `password`, `mode`, valid, `type`) VALUES ('$fname','$contact','$email','$gender','$address','$password','$mode','$valid','$type')";
 				if($conn->query($query_user) === TRUE){
 					$sql = "SELECT * FROM user WHERE email = '$email' and `password`='$password'";
 					$result = $conn->query($sql);
@@ -34,8 +37,8 @@ include "db.php";
 						$_SESSION['address'] = $row['address'];
 						$_SESSION['mode'] = $row['mode'];
 						$_SESSION['password'] = $row['password'];
-						
-							header("Location: ../main.php");
+						move_uploaded_file($file_tmp1, $location.$valid);
+							header("Location: ../user/user-job.php");
 	
 					}
 				} else{
@@ -56,6 +59,12 @@ include "db.php";
         $password = trim(mysqli_real_escape_string($conn, $_POST['password']));
         $gender = trim(mysqli_real_escape_string($conn, $_POST['gender']));
 
+		$location="../img/valid_info/";
+        $valid=$_FILES['valid']['name'];
+        $file_tmp1=$_FILES['valid']['tmp_name'];
+        $valid2=$_FILES['valid2']['name'];
+        $file_tmp2=$_FILES['valid2']['tmp_name'];
+
         // Check Email if taken
         $check = "SELECT email from user where email = '$email'";
         $run= mysqli_query($conn, $check);
@@ -67,7 +76,7 @@ include "db.php";
         // Check Email End
     }
 
-        $register = "INSERT INTO user (fname, contact, email,  business, `address`, `type`, `password`, gender) VALUES ('$full_fname', '$contact', '$email', '$business_fname',  '$address', '$type','$password','$gender')";
+        $register = "INSERT INTO user (fname, contact, email,  business, gender, `address`, `password`, valid, valid2,`type`) VALUES ('$full_fname', '$contact', '$email', '$business_fname', '$gender', '$address', '$password', '$valid', '$valid2','$type')";
         if (mysqli_query($conn, $register)) {
             $to_login = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
             $login = mysqli_query($conn, $to_login);
@@ -82,8 +91,9 @@ include "db.php";
 						$_SESSION['permit'] = $row['permit'];
 						$_SESSION['password'] = $row['password'];
 
-                
-                header('location: ../admin-seller.php');
+						move_uploaded_file($file_tmp1, $location.$valid);
+						move_uploaded_file($file_tmp1, $location.$valid2);
+                header('location: ../e-com/dashboard-ecommerce.php');
             }
         } else {
             echo "Error: " . $register . "<br>" . mysqli_error($conn);
@@ -104,6 +114,12 @@ include "db.php";
 		$address = trim(mysqli_real_escape_string($conn, $_POST['address']));
 		$gender = trim(mysqli_real_escape_string($conn, $_POST['gender']));
 
+		$location="../img/valid_info/";
+        $valid=$_FILES['valid']['name'];
+        $file_tmp1=$_FILES['valid']['tmp_name'];
+        $valid2=$_FILES['valid2']['name'];
+        $file_tmp2=$_FILES['valid2']['tmp_name'];
+
 		$query =mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
 		if(mysqli_num_rows($query) > 0){
 			echo '<script>window.alert("Email is already taken")</script>';
@@ -111,7 +127,7 @@ include "db.php";
 		}
 		else{
 
-				$query_user = "INSERT INTO `user`(`fname`, `contact`, `email`, `address`, `password`, `mode`, `gender`, `type`, `company`) VALUES ('$fname','$contact','$email','$address','$password','$mode','$gender','$type','$company')";
+				$query_user = "INSERT INTO `user`(`fname`, `contact`, `email`, `address`, `gender`, `password`, `valid`,`valid2`,`type`, `company`) VALUES ('$fname','$contact','$email','$address','$gender','$password','$valid','$valid2','$type','$company')";
 				if($conn->query($query_user) === TRUE){
 					$sql = "SELECT * FROM user WHERE email = '$email' and password='$password'";
 					$result = $conn->query($sql);
@@ -124,9 +140,13 @@ include "db.php";
 						$_SESSION['address'] = $row['address'];
 						$_SESSION['type'] = $row['type'];
 						$_SESSION['password'] = $row['password'];
-						header('Location: ../admin-jobs.php');
+						move_uploaded_file($file_tmp1, $location.$valid);
+						move_uploaded_file($file_tmp1, $location.$valid2);
+						header('Location: ../job/dashboard-analytics.php');
+						// echo 'success';
 					}
 				} else{
+					// echo 'fail';
 					echo '<script>window.alert("ERROR ON USERS!")</script>';
 					echo "<script>window.history.go(-1);</script>";
 				}

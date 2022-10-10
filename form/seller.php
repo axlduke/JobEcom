@@ -86,7 +86,7 @@
 
                                 <div class="card-body">
                                     <div class="row">
-                                        <form class="auth-register-form" id="jquery-val-form" method="post">
+                                        <form action="../auth/register-auth.php" method="post" role="form" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
@@ -106,7 +106,7 @@
                                                         <div class="form-group">
                                                             <label class="form-label" for="register-password">Password</label>
                                                             <div class="input-group input-group-merge form-password-toggle">
-                                                                <input class="form-control form-control-merge" id="txtPassword" type="password" name="register-password" placeholder="············" aria-describedby="register-password" tabindex="3" required/>
+                                                                <input class="form-control form-control-merge" id="txtPassword" type="password" name="password" placeholder="············" aria-describedby="register-password" tabindex="3" required/>
                                                                 <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
                                                             </div>
                                                         </div>
@@ -115,7 +115,7 @@
                                                     <div class="form-group">
                                                             <label class="form-label" for="register-password">Re-Password</label>
                                                             <div class="input-group input-group-merge form-password-toggle">
-                                                                <input class="form-control form-control-merge" id="txtConfirmPassword" type="password" name="register-password" placeholder="············" aria-describedby="register-password" tabindex="3" required/>
+                                                                <input class="form-control form-control-merge" id="txtConfirmPassword" type="password" name="password" placeholder="············" aria-describedby="register-password" tabindex="3" required/>
                                                                 <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
                                                             </div>
                                                         </div>
@@ -183,17 +183,25 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="d-block">Gender</label>
-                                                    <div class="custom-control custom-radio my-50">
-                                                        <input type="radio" id="validationRadiojq1" name="male" class="custom-control-input"/>
-                                                        <label class="custom-control-label" for="validationRadiojq1">Male</label><br>
-                                                    </div>
-                                                    <div class="custom-control custom-radio">
-                                                        <label class="custom-control-label" for="validationRadiojq2">Female</label>
-                                                        <input type="radio" id="validationRadiojq2" name="female" class="custom-control-input"/>
-                                                    </div>
-                                                </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="basic-default-name">Contact</label>
+                                                            <input name="contact" type="tel" class="form-control" id="basic-default-name" maxlength="11" required/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="basic-default-name">valid ID</label>
+                                                            <input name="valid" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="basic-default-name">BIR</label>
+                                                            <input name="valid2" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="d-block">Gender</label>
+                                                            <input type="radio" name="gender" value="Male">
+                                                            <label for="css">Male</label><br>
+                                                            <input type="radio" id="javascript" name="gender" value="Female">
+                                                            <label for="javascript">Female</label>
+                                                        </div>
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="validationCheck" name="validationCheck" required/>
@@ -202,7 +210,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary" name="submit" value="Submit" onclick="return Validate()">Submit</button>
+                                                    <input type="text" name="type" value="2" class="hidden">
+                                                    <button type="submit" class="btn btn-primary" name="seller">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -215,25 +224,6 @@
                                         <span>Sign in instead</span>
                                     </a>
                                 </p>
-
-                                <div class="divider my-2">
-                                    <div class="divider-text">or</div>
-                                </div>
-
-                                <div class="auth-footer-btn d-flex justify-content-center">
-                                    <a href="javascript:void(0)" class="btn btn-facebook">
-                                        <i data-feather="facebook"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-twitter white">
-                                        <i data-feather="twitter"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-google">
-                                        <i data-feather="mail"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="btn btn-github">
-                                        <i data-feather="github"></i>
-                                    </a>
-                                </div>
                             </div>
                         </div>
                         <!-- /Register v1 -->
