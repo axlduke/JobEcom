@@ -34,7 +34,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="author" content="PIXINVENT">
-    <title>Users List </title>
+    <title>Accounts Verification</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -65,6 +65,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/javascript" href="cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-swiper.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/swiper.min.css">    
     <!-- END: Custom CSS-->
 
 </head>
@@ -84,7 +86,7 @@
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">Admin</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -140,7 +142,7 @@
                 <li class=" nav-item"><a class="d-flex align-items-center" href="../chat/app-chat.php"><i data-feather="message-square"></i><span class="menu-title text-truncate" data-i18n="Chat">Chat</span></a>
                 </li>
                 <li class=" active"><a class="d-flex align-items-center" href="admin-users-list.php"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Invoice">Users List</span></a>
-                </li>
+                </li>              
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Account</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="admin-profile.php"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop">Profile</span></a>
@@ -184,14 +186,14 @@
                     <!-- <div class="row"> -->
                         <!-- <div class="col-12"> -->
                         <div class="card mb-4">
-                            <div class="card-body">
+                            <div class="card-body overflow-auto">
                                 <table id="example">
                                     <thead>
                                         <tr>
                                             <th>Type</th>
-                                            <th>Full Name</th>
+                                            <th>Name</th>                                     
                                             <th>Violations</th>
-                                            <th>Phone Number</th>
+                                            <th>Contact</th>
                                             <th>Email</th>
                                             <th>Address</th>
                                             <th>Action</th>
@@ -205,15 +207,42 @@
                                         while($row = $result->fetch_array()){
                                             $uid =$row['user_id'];
                                             $type = $row['type'];
+                                            if($row['verification_status'] == 'Verified'){
+                                              $button ='                                                                    
+                                              <button type="btn" name="reject" class="btn btn-danger mr-1" disabled>Reject</button>
+                                              <button type="btn" name="verify" class="btn btn-primary mr-1" disabled>Verify</button>';      
+                                            }else{
+                                              $button = '                                                                    
+                                              <button type="btn" name="reject" class="btn btn-danger mr-1">Reject</button>
+                                              <button type="btn" name="verify" class="btn btn-primary mr-1">Verify</button>';
+                                            }                                             
                                             if ( $type=='1') {
                                               $type = 'User';
+                                              $valid_id = ' 
+                                                <span>Identification: Front</span>              
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['front_id'].'" alt="front img" />
+                                                 <span>Identification: Back</span>
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['back_id'].'" alt="back img" />';
                                             }
                                             elseif ( $type=='2') {
                                               $type = 'Seller';
+                                              $valid_id = ' 
+                                                <span>Identification: Front</span>              
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['front_id'].'" alt="front img" />
+                                                 <span>Identification: Back</span>
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['back_id'].'" alt="back img" />
+                                                <span>B.I.R.</span>              
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['bir'].'" alt="front img" />';                                              
                                             }
                                             elseif ( $type=='3') {
                                               $type = 'Employer';
-                                            }                                                                                        
+                                              $valid_id = ' 
+                                                <span>Identification: Front</span>              
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['front_id'].'" alt="front img" />
+                                                 <span>Identification: Back</span>
+                                                <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['back_id'].'" alt="back img" />';                                              
+                                            }        
+                                                                               
                                             echo 
                                             '<tr>
                                                 <td>'.$type.'</td>
@@ -228,6 +257,10 @@
                                                         <i data-feather="more-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
+                                                     <a class="dropdown-item" data-toggle="modal" data-target="#backdropid'.$uid.'">
+                                                            <i data-feather="image" mr-50></i>
+                                                            <span>View I.D.</span>
+                                                        </a>                                                       
                                                         <a class="dropdown-item" data-toggle="modal" data-target="#backdrop'.$uid.'">
                                                             <i data-feather="alert-triangle" mr-50></i>
                                                             <span>Restrict</span>
@@ -236,9 +269,9 @@
                                                             <i data-feather="slash" class="mr-50"></i>
                                                             <span>Ban</span>
                                                         </a>                                                        
-                                                        <a class="dropdown-item" href="../auth/admin/admin-delete-user-account.php?uid='.$uid.'">
-                                                            <i data-feather="trash" class="mr-50"></i>
-                                                            <span>Delete</span>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i data-feather="archive" class="mr-50"></i>
+                                                            <span>Archive</span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -341,6 +374,35 @@
                                                     </div>
                                                     <br>
                                                     <!-- Restrict Account        -->
+                                                    <!-- View ID       -->
+                                                            <div style="text-align: right;">
+                                                                <div class="disabled-backdrop-ex">
+                                                                <!-- Modal -->
+                                                                <div class="modal fade text-left" id="backdropid'.$uid.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                 <h4 class="modal-title" id="myModalLabel4">View ID</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                     <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                    <div class="modal-body">
+                                                                    '.$valid_id.'
+                                                                    </div>
+                                                                    <div style="text-align:right;" class="col-12">
+                                                                    <form method="POST" action="../auth/admin/verify-account-action.php">
+                                                                    <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
+                                                                    '.$button.'
+                                                                    </form>
+                                                                    </div>
+                                                                    <br>                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <!-- View ID        --> 
                                                 </td>
                                             </tr>';
                                         }
@@ -355,7 +417,7 @@
 
 
             </div>
-        </div>
+        </div>                                                
     </div>
     <!-- END: Content-->
 
@@ -405,6 +467,8 @@
     <script src="../app-assets/vendors/js/charts/chart.min.js"></script>
     <script src="../app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <script src="../app-assets/js/scripts/charts/chart-chartjs.js"></script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-swiper.js"></script>
+    <script src="../app-assets/vendors/js/extensions/swiper.min.js"></script>
     <!-- END: Page JS-->
 
     <script>

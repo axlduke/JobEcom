@@ -113,7 +113,7 @@
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
-                                                                <label class="form-label" for="register-password">Password</label>
+                                                                <label class="form-label" for="register-password">Retype-Password</label>
                                                                 <div class="input-group input-group-merge form-password-toggle">
                                                                     <input class="form-control form-control-merge" id="txtConfirmPassword" type="password" name="password" placeholder="············" aria-describedby="register-password" tabindex="3" />
                                                                     <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
@@ -187,7 +187,10 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="file" name="valid" accept="image/*" />
+                                                        <label class="form-label" for="basic-default-name">Valid ID: Front</label>
+                                                        <input type="file" name="front" accept="image/*" required />
+                                                        <label class="form-label" for="basic-default-name">Valid ID: Back</label>
+                                                        <input type="file" name="back" accept="image/*" required />
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

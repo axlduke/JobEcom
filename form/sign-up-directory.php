@@ -85,16 +85,16 @@
                                 <p class="card-text mb-2">Make your app management easy and fun!</p>
 
                                 <div class="d-flex justify-content-around">
-                                    <div class="">
-                                        <div class="row row-cols-3 row-cols-lg-3  g-lg-3" id="jquery-val-form" method="post">
-                                            <div class="col">
-                                                <a href="sign-up.php" type="submit" class="btn btn-success" name="submit" value="Submit" onclick="return Validate()">User</a>
+                                    <div class="" style="text-align: center;">
+                                        <div class="row row-cols-4 row-cols-lg-3  g-lg-3" id="jquery-val-form" method="post">
+                                            <div class="col-4">
+                                                <a href="sign-up.php" type="submit" class="btn btn-success" name="submit" value="Submit" onclick="return Validate()">User </a>
                                             </div>
-                                            <div class="col">
+                                            <div class="col-span-4">
                                                 <a href="employer.php" type="submit" class="btn bg-info bg-lighten-2" name="submit" value="Submit" onclick="return Validate()">Employer</a>
                                             </div>
-                                            <div class="col">
-                                                <a href="seller.php" type="submit" class="btn btn-warning" name="submit" value="Submit" onclick="return Validate()">Seller</a>
+                                            <div class="col-lg-3">
+                                                <a href="seller.php" type="submit" class="btn btn-warning" name="submit" value="Submit" onclick="return Validate()">Seller </a>
                                             </div>
                                         </div>
                                     </div>

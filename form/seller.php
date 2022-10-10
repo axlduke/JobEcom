@@ -188,12 +188,16 @@
                                                             <input name="contact" type="tel" class="form-control" id="basic-default-name" maxlength="11" required/>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="form-label" for="basic-default-name">valid ID</label>
-                                                            <input name="valid" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
+                                                            <label class="form-label" for="basic-default-name">Valid ID: Front</label>
+                                                            <input name="front" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
                                                         </div>
                                                         <div class="form-group">
+                                                            <label class="form-label" for="basic-default-name">Valid ID: Back</label>
+                                                            <input name="back" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
+                                                        </div>                                                        
+                                                        <div class="form-group">
                                                             <label class="form-label" for="basic-default-name">BIR</label>
-                                                            <input name="valid2" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
+                                                            <input name="bir" type="file" class="form-control" id="basic-default-name" accept="image/*" required/>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="d-block">Gender</label>

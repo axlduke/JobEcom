@@ -191,15 +191,21 @@
                                                     </div>
                                                 <div class="row">
                                                     <div class="form-group">
-                                                        <label class="d-block">Valid ID</label>
+                                                        <label class="d-block">Valid ID: Front</label>
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="file" name="valid" accept="image/*" placeholder="valid id"/>
+                                                            <input type="file" name="front" accept="image/*" placeholder="valid id"/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label class="d-block">Valid ID: Back</label>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="file" name="back" accept="image/*" placeholder="valid id"/>
+                                                        </div>
+                                                    </div>                                                    
+                                                    <div class="form-group">
                                                         <label class="d-block">Proof Of Employment</label>
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="file" name="valid2" accept="image/*" />
+                                                            <input type="file" name="bir" accept="image/*" />
                                                         </div>
                                                     </div>
                                                 </div>
