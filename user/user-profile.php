@@ -26,6 +26,12 @@
             header('location: ../form/login.php');
         }
     }
+    $cert = "SELECT * FROM credentials WHERE user_id = '$user_id'";
+    $cert_res = $conn->query($cert);
+    if($cert_res->num_rows > 0){
+        $rows = $cert_res->fetch_array();
+        $pdf_file = $rows['pdf_file'];
+    }
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -345,6 +351,14 @@
                                             <div class="mt-2">
                                                 <h5 class="mb-75">Email:</h5>
                                                 <p class="card-text"><?= $email?></p>
+                                            </div>
+                                            <div class="mt-2">
+                                                <h5 class="mb-75">Resume</h5>
+                                                <a href="../img/certificates/<?= $rows['pdf_file']?>" download="../img/certificates/<?= $rows['pdf_file']?>" class="badge badge-pill badge-light-info"><?= $rows['pdf_file']?></a>
+                                            </div>
+                                            <div class="mt-2">
+                                                <h5 class="mb-75">Certificates</h5>
+                                                <a href="../img/certificates/<?= $rows['pdf_file']?>" download="../img/certificates/<?= $rows['pdf_file']?>" class="badge badge-pill badge-light-info"><?= $rows['pdf_file']?></a>
                                             </div>
                                         </div>
                                     </div>

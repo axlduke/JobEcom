@@ -277,11 +277,6 @@
                                         <!-- <button class="navbar-toggler shop-sidebar-toggler" type="button" data-toggle="collapse">
                                             <span class="navbar-toggler-icon d-block d-lg-none"><i data-feather="menu"></i></span>
                                         </button> -->
-                                        <?php 
-                                            $post = mysqli_query($conn, "SELECT * FROM products");
-                                            $rows1 = mysqli_num_rows($post);
-                                            echo '<div class="badge badge-pill badge-light-primary">'.$rows1.' results found</div>';
-                                        ?>
                                     </div>
                                     <div class="view-options d-flex">
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">

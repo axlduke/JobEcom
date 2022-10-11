@@ -67,6 +67,12 @@
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
 
+    <!-- autocomplete search -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="typeahead.js"></script>
+    <!-- autocomplete search -->
+
 </head>
 <!-- END: Head-->
 
@@ -284,12 +290,14 @@
                             <div class="row mt-1">
                                 <div class="col-sm-12 search-box">
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control search-product"name="search"  id="shop-search" autocomplete="off" placeholder="Search Jobs" aria-label="Search..." aria-describedby="shop-search" />
+                                        <!-- autocomplete -->
+                                        <input type="text" class="form-control search-product typeahead-devs" name="search" id="txtCountry" autocomplete="off" placeholder="Search Jobs" aria-label="Search..." aria-describedby="shop-search" />
+                                        <!-- <input type="text" id="txtCountry"> -->
                                         <div class="input-group-append">
                                             <button name="search_position" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
                                         </div>
                                     </div>
-                                    <div class="result"></div>
+                                    <!-- <div id="show-list"></div> -->
                                 </div>
                             </div>
                         </section>
@@ -301,7 +309,7 @@
                         <div class="card">
                         <div class="card-body">
                             <div class="mt-4 mb-2 text-center">
-                                <h4>Recommendation of jobs related to your past jobs you applied</h4>
+                                <h4>Trending Jobs Recommendation that suites you</h4>
                                 <p class="card-text">People also search for this jobs</p>
                             </div>                          
                             <div class="swiper-responsive-breakpoints swiper-container px-12 py5">
@@ -502,6 +510,28 @@
     <script src="../app-assets/js/scripts/forms/form-number-input.js"></script>        
     <!-- END: Page JS-->
 
+    <!-- autocomplete -->
+    <script>
+        $(document).ready(function () {
+            $('#txtCountry').typeahead({
+                source: function (query, result) {
+                    $.ajax({
+                        url: "script.php",
+                        data: 'query=' + query,            
+                        dataType: "json",
+                        type: "POST",
+                        success: function (data) {
+                            result($.map(data, function (item) {
+                                return item;
+                            }));
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- autocomplete -->
+    
     <script>
         $(window).on('load', function() {
             if (feather) {

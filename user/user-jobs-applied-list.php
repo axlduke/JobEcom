@@ -91,6 +91,8 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sliders.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-ecommerce.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-toastr.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -284,8 +286,8 @@
                                     <input name="job_id" class="hidden" type="text" value="<?php echo $post_id?>">
                                     <input name="user_id" class="hidden" type="text" value="<?php echo $user_id?>">
                                     <input name="fname" class="hidden" type="text" value="<?php echo $fname ;?>">
-
-                                    <a href="../auth/jobs/delete-applied-job.php?job_post=<?=$applied?>" class="btn btn-danger mr-1"><span><?='&nbsp;&nbsp; Cancel &nbsp;&nbsp;&nbsp'?></span></a>
+                                    <!-- <button type="button" class="btn btn-outline-primary" id="confirm-text">Confirm Text</button> -->
+                                    <button type="button" class="btn btn-outline-success" id="type-success"><a href="../auth/jobs/delete-applied-job.php?job_post=<?=$applied?>"><span id="type-success"><?='&nbsp;&nbsp; Cancel &nbsp;&nbsp;&nbsp'?></span></a></button>
                                     <a href="user-view-job-post.php?post=<?= $row['post_id']?>" type="submit" class="btn btn-primary mr-1"><?='&nbsp;&nbsp;&nbsp;&nbsp; View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'?></a>
                                 </form>                                        
                             </div>
@@ -327,6 +329,10 @@
     <!-- BEGIN: Page JS-->
     <script src="../app-assets/js/scripts/pages/app-ecommerce.js"></script>
     <!-- END: Page JS-->
+
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
 
     <script>
         $(window).on('load', function() {

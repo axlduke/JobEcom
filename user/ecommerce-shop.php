@@ -67,6 +67,22 @@
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
 
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="typeahead.js"></script>
+    <style>
+	.typeahead { border: 2px solid #FFF;border-radius: 4px;padding: 8px 12px;max-width: 300px;min-width: 290px;background: rgba(66, 52, 52, 0.5);color: #FFF;}
+	.tt-menu { width:300px; }
+	ul.typeahead{margin:0px;padding:10px 0px;}
+	ul.typeahead.dropdown-menu li a {padding: 10px !important;	border-bottom:#CCC 1px solid;color:#FFF;}
+	ul.typeahead.dropdown-menu li:last-child a { border-bottom:0px !important; }
+	.bgcolor {max-width: 550px;min-width: 290px;max-height:340px;}
+	.demo-label {font-size:1.5em;color: #686868;font-weight: 500;color:#FFF;}
+	.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+		text-decoration: none;
+		background-color: #1f3f41;
+		outline: 0;
+	}
+	</style>
 
 </head>
 <!-- END: Head-->
@@ -283,7 +299,7 @@
                             <div class="row mt-1">
                                 <div class="col-sm-12">
                                     <div class="input-group input-group-merge">
-                                        <input name="search" type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                                        <input name="search" type="text" class="form-control search-product" id="search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
                                         <div class="input-group-append">
                                             <button name="search_products" type="submit" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
                                         </div>
@@ -589,6 +605,25 @@
                 });
             }
         })
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('#search').typeahead({
+            source: function (query, result) {
+                $.ajax({
+                    url: "data.php",
+					data: 'query=' + query,            
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+						result($.map(data, function (item) {
+							return item;
+                        }));
+                    }
+                });
+            }
+        });
+    });
     </script>
 </body>
 <!-- END: Body-->
