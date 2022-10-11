@@ -10,6 +10,9 @@ if(isset($_POST['restrict_button'])){
         $sql = "UPDATE user SET restriction = 'Restricted', starting_date='$starting_date', ending_date='$ending_date', total_violation=total_violation+'$add_violation' WHERE user_id = '$uid'";
         $result = mysqli_query($conn, $sql); 
         if($result){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Account Restricted!";
+            $_SESSION['status_text'] = "You have successfully restricted the user";
             header('location: ../../admin/admin-users-list.php');
 
     }

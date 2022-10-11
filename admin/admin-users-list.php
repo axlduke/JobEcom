@@ -67,6 +67,8 @@
     <link rel="stylesheet" type="text/javascript" href="cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-swiper.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/swiper.min.css">    
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">    
     <!-- END: Custom CSS-->
 
 </head>
@@ -215,7 +217,10 @@
                                               $button = '                                                                    
                                               <button type="btn" name="reject" class="btn btn-danger mr-1">Reject</button>
                                               <button type="btn" name="verify" class="btn btn-primary mr-1">Verify</button>';
-                                            }                                             
+                                            }      
+                                            if($row['restriction'] == 'Banned' OR $row['restriction'] == 'Restricted'){
+                                              $disable = 'disabled';      
+                                            }else{$disable = '';}                                                                                  
                                             if ( $type=='1') {
                                               $type = 'User';
                                               $valid_id = ' 
@@ -269,10 +274,6 @@
                                                             <i data-feather="slash" class="mr-50"></i>
                                                             <span>Ban</span>
                                                         </a>                                                        
-                                                        <a class="dropdown-item" href="#">
-                                                            <i data-feather="archive" class="mr-50"></i>
-                                                            <span>Archive</span>
-                                                        </a>
                                                     </div>
                                                 </div>
                                                 <!-- Restric Account       -->
@@ -355,8 +356,8 @@
                                                                                              <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
                                                                                             </div>
                                                                                             <div style="text-align:right;" class="col-12">
-                                                                                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                                                                            <button type="btn" name="restrict_button" class="btn btn-primary mr-1">Submit</button>
+                                                                                            <button type="reset" class="btn btn-outline-secondary" '.$disable.'>Reset</button>
+                                                                                            <button type="btn" name="restrict_button" class="btn btn-primary mr-1" '.$disable.'>Submit</button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </form>
@@ -393,6 +394,7 @@
                                                                     <div style="text-align:right;" class="col-12">
                                                                     <form method="POST" action="../auth/admin/verify-account-action.php">
                                                                     <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
+                                                                    <input type="hidden" class="form-control" name="user_email" value="'.$row['email'].'"/>
                                                                     '.$button.'
                                                                     </form>
                                                                     </div>
@@ -488,6 +490,25 @@
             });
         });
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_title']);
+}
+?>
 </body>
 <!-- END: Body-->
 

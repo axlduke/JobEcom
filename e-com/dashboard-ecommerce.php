@@ -34,7 +34,7 @@
 
     // total profit
     $total_profit=0;
-    $query2 = "SELECT products.price as price, orders.quantity as qty, orders.product_id,orders.quantity FROM products inner join orders on products.product_id = orders.product_id Where products.seller_id = '$user_id'";
+    $query2 = "SELECT products.price as price, orders.quantity as qty, orders.product_id,orders.quantity FROM products inner join orders on products.product_id = orders.product_id Where products.seller_id = '$user_id'  AND orders.order_status = 'Order Received'";
     $res = $conn->query($query2);
     while($f = $res->fetch_array()){
         $total_profit += $f['qty'] * $f['price'];
@@ -236,7 +236,7 @@
                                     <div class="row">
                                         <?php 
                                             $total_today = 0;
-                                            $sql = "SELECT sum(products.price*orders.quantity) as daily from products,orders where products.product_id=orders.product_id AND products.seller_id = '$user_id' AND DATE(orders.date_ordered) = DATE(NOW()) group by date(orders.date_ordered)";
+                                            $sql = "SELECT sum(products.price*orders.quantity) as daily from products,orders where products.product_id=orders.product_id AND orders.order_status = 'Order Received' AND products.seller_id = '$user_id' AND DATE(orders.date_ordered) = DATE(NOW()) group by date(orders.date_ordered)";
                                              $r = $conn->query($sql);
                                             while($today = $r->fetch_array()){
                                                 $total_today = $today['daily'];
@@ -278,7 +278,7 @@
                                         </div>
                                         <?php 
                                             $yearly = 0;
-                                            $query4 = "SELECT year(orders.date_ordered),sum(products.price*orders.quantity) as yearly_revenue from products,orders where products.product_id=orders.product_id and products.seller_id = '$user_id' group by year(orders.date_ordered)";
+                                            $query4 = "SELECT year(orders.date_ordered),sum(products.price*orders.quantity) as yearly_revenue from products,orders where products.product_id=orders.product_id and products.seller_id = '$user_id'  AND orders.order_status = 'Order Received' group by year(orders.date_ordered)";
                                             $result4 = $conn->query($query4);
                                             while($rev = $result4->fetch_array()){
                                                 $yearly = $rev['yearly_revenue'];
@@ -334,12 +334,12 @@
                                 <?php   
                                      $this_month = 0;
                                      $prev_month = 0;
-                                    $query5 = "SELECT month(orders.date_ordered),sum(products.price*orders.quantity) as this_month from products,orders where products.seller_id =  '$user_id' and products.product_id=orders.product_id and orders.date_ordered >= (LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL 1 MONTH) and orders.date_ordered < (LAST_DAY(NOW()) + INTERVAL 1 DAY) group by month(orders.date_ordered)";
+                                    $query5 = "SELECT month(orders.date_ordered),sum(products.price*orders.quantity) as this_month from products,orders where products.seller_id =  '$user_id' and products.product_id=orders.product_id and orders.date_ordered >= (LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL 1 MONTH) and orders.date_ordered < (LAST_DAY(NOW()) + INTERVAL 1 DAY)  AND orders.order_status = 'Order Received' group by month(orders.date_ordered)";
                                             $result5 = $conn->query($query5);
                                             while($mtly = $result5->fetch_array()){
                                                 $this_month = $mtly['this_month'];                                                                
                                             }       
-                                            $query6 = "SELECT  date(orders.date_ordered) as date, sum(products.price*orders.quantity) as last_month FROM orders, products WHERE products.seller_id='$user_id' and products.product_id=orders.product_id and orders.date_ordered BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()"; 
+                                            $query6 = "SELECT  date(orders.date_ordered) as date, sum(products.price*orders.quantity) as last_month FROM orders, products WHERE products.seller_id='$user_id' and products.product_id=orders.product_id  AND orders.order_status = 'Order Received' and orders.date_ordered BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()"; 
                                                     $result6 = $conn->query($query6);
                                                     while($last_month = $result6->fetch_array()){
                                                         $prev_month = $last_month['last_month'];
