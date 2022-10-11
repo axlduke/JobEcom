@@ -219,7 +219,51 @@
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="brand-name-column">Brand</label>
-                                                                                <input type="text" id="brand-name-column" class="form-control" placeholder="Brand" name="brand" required />
+                                                                                <input list="brand" type="text" id="brand-name-column" class="form-control" placeholder="Brand" name="brand" required />
+                                                                                <datalist id="brand">
+                                                                                    <option value="ADDIDAS">
+                                                                                    <option value="ANNE KLEIN">
+                                                                                    <option value="ADRIENNE VITTADINI">
+                                                                                    <option value="APARA">
+                                                                                    <option value="AK ANNE KLEIN">
+                                                                                    <option value="ARIAT">
+                                                                                    <option value="ALPEX">
+                                                                                    <option value="ASICS">
+                                                                                    <option value="CROCS">
+                                                                                    <option value="CONVERSE">
+                                                                                    <option value="CALVIN KLEIN">
+                                                                                    <option value="CLARKS">
+                                                                                    <option value="CATERPILLAR">
+                                                                                    <option value="CREVO">
+                                                                                    <option value="BRIGHTON">
+                                                                                    <option value="BOTKIER">
+                                                                                    <option value="BURBERRY">
+                                                                                    <option value="CALVIN KLEIN">
+                                                                                    <option value="CELINE">
+                                                                                    <option value="CHANEL">
+                                                                                    <option value="COACH">
+                                                                                    <option value="COLE HAAN">
+                                                                                    <option value="DOONNEY & BOURKE">
+                                                                                    <option value="FENDI">
+                                                                                    <option value="FOSSIL">
+                                                                                    <option value="FURLA">
+                                                                                    <option value="GUCCI">
+                                                                                    <option value="GUESS">
+                                                                                    <option value="KATE SPADE NEW YORK">
+                                                                                    <option value="LONGCHAMP">
+                                                                                    <option value="LOUIS VUITTON">
+                                                                                    <option value="MARC BY MARC JACOBS">
+                                                                                    <option value="MICHAEL MICHAEL KORS">
+                                                                                    <option value="NINE WEST">
+                                                                                    <option value="PRADA">
+                                                                                    <option value="REBECCA MINKOFF">
+                                                                                    <option value="SALVATORE FERRAGAMO">
+                                                                                    <option value="STELLA & DOT">
+                                                                                    <option value="THE SAK">
+                                                                                    <option value="TED BAKER">
+                                                                                    <option value="TORY BURCH">
+                                                                                    <option value="VERA BRADLY">
+                                                                                </datalist>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6 col-12">
