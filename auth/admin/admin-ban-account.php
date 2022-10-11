@@ -3,7 +3,7 @@ session_start();
 include_once '../db.php';
     if (!isset($_SESSION['user_id'])){
 		echo '<script>window.alert("PLEASE LOGIN FIRST!!")</script>';
-		echo '<script>window.location.replace("../login.php");</script>';
+		echo '<script>window.location.replace("../form/login.php");</script>';
 	}
 
 $user = $_SESSION['user_id'];

@@ -394,6 +394,7 @@
                                                                     <div style="text-align:right;" class="col-12">
                                                                     <form method="POST" action="../auth/admin/verify-account-action.php">
                                                                     <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
+                                                                    <input type="hidden" class="form-control" name="user_email" value="'.$row['email'].'"/>
                                                                     '.$button.'
                                                                     </form>
                                                                     </div>
