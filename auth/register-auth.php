@@ -20,7 +20,7 @@ include "db.php";
 
 		$query =mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
 		if(mysqli_num_rows($query) > 0){
-			echo '<script>window.alert("Email is already taken")</script>';
+	        echo '<script>window.alert("This email is already taken")</script>'; 
 			echo "<script>window.history.go(-1);</script>";
 		}
 		else{
@@ -41,6 +41,9 @@ include "db.php";
 						$_SESSION['password'] = $row['password'];
 						move_uploaded_file($file_tmp1, $location.$front);
 						move_uploaded_file($file_tmp2, $location.$back);
+				        $_SESSION['status_icon'] = "success";
+				        $_SESSION['status_title'] = "Account Registered!";
+				        $_SESSION['status_text'] = "Please wait for your account to be verified, we will email you once your account verification is done. Please note that you can not log in until your account is verified.";
 							header("Location: ../form/login.php");
 	
 					}
@@ -75,7 +78,7 @@ include "db.php";
         $run= mysqli_query($conn, $check);
         $select = mysqli_query($conn, "SELECT `email` FROM `user` WHERE `email` = '".$_POST['email']."' OR `contact` ='$contact'") or exit(mysqli_error($conn));
         if(mysqli_num_rows($select)) {
-			echo '<script>window.alert("Email is already taken")</script>';
+	        echo '<script>window.alert("This email is already taken")</script>'; 
 			echo "<script>window.history.go(-1);</script>";
         exit();
         // Check Email End
@@ -99,6 +102,9 @@ include "db.php";
 						move_uploaded_file($file_tmp1, $location.$front);
 						move_uploaded_file($file_tmp2, $location.$back);
 						move_uploaded_file($file_tmp3, $location.$bir);
+				        $_SESSION['status_icon'] = "success";
+				        $_SESSION['status_title'] = "Account Registered!";
+				        $_SESSION['status_text'] = "Please wait for your account to be verified, we will email you once your account verification is done";						
                header("Location: ../form/login.php");
             }
         } else {
@@ -130,7 +136,7 @@ include "db.php";
 
 		$query =mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
 		if(mysqli_num_rows($query) > 0){
-			echo '<script>window.alert("Email is already taken")</script>';
+	        echo '<script>window.alert("This email is already taken")</script>'; 
 			echo "<script>window.history.go(-1);</script>";
 		}
 		else{
@@ -151,6 +157,9 @@ include "db.php";
 						move_uploaded_file($file_tmp1, $location.$front);
 						move_uploaded_file($file_tmp2, $location.$back);
 						move_uploaded_file($file_tmp3, $location.$bir);
+				        $_SESSION['status_icon'] = "success";
+				        $_SESSION['status_title'] = "Account Registered!";
+				        $_SESSION['status_text'] = "Please wait for your account to be verified, we will email you once your account verification is done";						
 						header("Location: ../form/login.php");
 						// echo 'success';
 					}
