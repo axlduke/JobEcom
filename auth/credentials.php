@@ -50,6 +50,9 @@
                     move_uploaded_file($file_tmp6, $location.$cert_6);
                     move_uploaded_file($file_tmpresume, $location.$pdf_resume);
                     move_uploaded_file($file_tmpcover, $location.$pdf_cover_file);
+                    $_SESSION['status_icon'] = "success";
+                    $_SESSION['status_title'] = "Credentials Updated";
+                    $_SESSION['status_text'] = "You have successfully updated your credentials";                       
                     header('Location: ../user/user-profile.php');
 
                 }
@@ -69,6 +72,9 @@
                 move_uploaded_file($file_tmp6, $location.$cert_6);
                 move_uploaded_file($file_tmpresume, $location.$pdf_resume);
                 move_uploaded_file($file_tmpcover, $location.$pdf_cover);
+                    $_SESSION['status_icon'] = "success";
+                    $_SESSION['status_title'] = "Credentials Updated";
+                    $_SESSION['status_text'] = "You have successfully updated your credentials";                  
                 header('Location: ../user/user-profile.php');
 
             }

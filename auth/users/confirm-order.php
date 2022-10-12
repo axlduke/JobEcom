@@ -9,6 +9,9 @@
         $sql2 = "UPDATE orders SET order_status = '$order_status' WHERE trx_id = '$trx_id' AND user_id = '$user_id'";
         $res = mysqli_query($conn, $sql2);
         if($conn->query($sql2) === TRUE){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Item Received!";
+            $_SESSION['status_text'] = "";              
             header("Location: ../../user/user-order-history.php");
         }
     } else{

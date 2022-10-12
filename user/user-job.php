@@ -34,7 +34,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="author" content="PIXINVENT">
-    <title>Jobs Post Page</title>
+    <title>Jobs</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -66,7 +66,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
-
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">   
     <!-- autocomplete search -->
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -172,7 +173,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -309,8 +310,7 @@
                         <div class="card">
                         <div class="card-body">
                             <div class="mt-4 mb-2 text-center">
-                                <h4>Trending Jobs Recommendation that suites you</h4>
-                                <p class="card-text">People also search for this jobs</p>
+                                <h4>Trending Jobs</h4>
                             </div>                          
                             <div class="swiper-responsive-breakpoints swiper-container px-12 py5">
                                 <div class="swiper-wrapper">
@@ -542,6 +542,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>         
 </body>
 <!-- END: Body-->
 

@@ -16,7 +16,7 @@
             $order = "INSERT INTO `orders`(`product_id`, `user_id`, `fname`, `phone`, `complete_address`, `zip_code`, `quantity`,`trx_id`,`date_ordered`) VALUES ('$product_id','$user_id','$fname','$contact','$address','$zipcode','$quantity','$trx_id',CURRENT_TIMESTAMP)";
             if ($conn->query($order)) {
                 $remove_from_cart = mysqli_query($conn, "DELETE FROM cart WHERE `product_id` ='$product_id' and user_id =$user_id");
-                $checkout = mysqli_query($conn,"UPDATE products SET quantity=quantity-$quantity WHERE product_id='$product_id'");
+                $checkout = mysqli_query($conn,"UPDATE products SET quantity=quantity-$quantity WHERE product_id='$product_id'");                 
                 header('Location: ../../user/thankyou-page.php');
 
             }        
