@@ -314,7 +314,7 @@
                         <div class="card">
                         <div class="card-body">
                             <div class="mt-4 mb-2 text-center">
-                                <h4>Recommendation of products related to your past purchases</h4>
+                                <h4>Trends</h4>
                                 <p class="card-text">People also search for this items</p>
                             </div>                          
                             <div class="swiper-responsive-breakpoints swiper-container px-4 py-2">
