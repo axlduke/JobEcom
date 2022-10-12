@@ -24,6 +24,19 @@
                 header('location: ../form/login.php');
         }
     }
+    $dataPoints = array(
+        array("y"=> 10, "label"=> "Japan"),
+        );
+    
+        $test=array();
+        $count=0;
+        $sql_query5=mysqli_query($conn,"SELECT *, jobs_post.post_id,applicants.job_id ,SUBSTRING(jobs_post.job_title, 1,20) as jobtitle, count(applicants.user_id) as qty from jobs_post INNER JOIN applicants on jobs_post.post_id = applicants.job_id WHERE jobs_post.employer_id ='$user_id' AND status ='Accepted' group by applicants.job_id");
+        while($row5=mysqli_fetch_array($sql_query5))
+        {
+            $test[$count]["label"]=$row5["jobtitle"];
+            $test[$count]["y"]=$row5["qty"];
+            $count = $count+1;
+        } 
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -185,11 +198,7 @@
                         <div class="col-lg-6 col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Pie Chart</h4>
-                                    <div class="card-header">
-                                        <!-- <i class="fas fa-chart-area me-1"></i> -->
-                                    </div>
-                                    
+                                    <h4 class="card-title">Total Users of Every Barangay</h4>
                                 </div>
                                 <div class="card-body">
                                     <div id="piechart_div" style="height:250px;">
@@ -197,17 +206,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <!-- <div class="col-lg-6 col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Area Chart</h4>
                                     <div class="card-header">
-                                        <!-- <i class="fas fa-chart-area me-1"></i> -->
+                                        <i class="fas fa-chart-area me-1"></i>
                                     </div>
                                     
                                 </div>
                                 <div class="card-body">
                                     <div id="chart_div" style="height:250px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-lg-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Total Banned</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-10 col-12 d-flex justify-content-center">
+                                            <div id="chart_div" style="height: 250px; width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Total Employer</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-10 col-12 d-flex justify-content-center">
+                                            <div id="piechart_div3" style="height: 250px; width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Total Seller</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-10 col-12 d-flex justify-content-center">
+                                            <div id="piechart_div4" style="height: 250px; width: 100%;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -335,36 +386,120 @@
                     var piechart = new google.visualization.PieChart(document
                             .getElementById('piechart_div'));
                     piechart.draw(data, piechart_options);
+                } 
 
-                    var barchart_options = {
-                        title : 'Barchart: address wise Participant',
-                        
-                        legend : 'none'
-                    };
-                    // var barchart = new google.visualization.BarChart(document
-                    //         .getElementById('barchart_div'));
-                    // barchart.draw(data, barchart_options);
-                    
-                
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
 
-                    
-                    var column_options = {
-                        title : 'Column Chart: address wise Participant',
+                $.ajax({
+                    url : "datavis3.php",
+                    dataType : "JSON",
+                    success : function(result) {
+                        google.charts.load('current', {
+                            'packages' : [ 'corechart' ]
+                        });
+                        google.charts.setOnLoadCallback(function() {
+                            drawChart(result);
+                        });
+                    }
+                });
+
+                function drawChart(result) {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Name');
+                    data.addColumn('number', 'Users');
+                    var dataArray = [];
+                    $.each(result, function(i, obj) {
+                        dataArray.push([ obj.company, parseInt(obj.Number) ]);
+                    });
+
+                    data.addRows(dataArray);
+                    var piechart_options = {
+                        // title : 'Pie Chart: address wise Participant',
                         
-                        legend: { position: 'bottom' }
+                        legend: { position: 'right' }
                     };
-                    // var columnchart = new google.visualization.ColumnChart(document
-                    //         .getElementById('column chart_div'));
-                    // columnchart.draw(data, column_options);
-                    
-                    
+                    var piechart = new google.visualization.PieChart(document
+                            .getElementById('piechart_div3'));
+                    piechart.draw(data, piechart_options);
+                } 
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                $.ajax({
+                    url : "datavis2.php",
+                    dataType : "JSON",
+                    success : function(result) {
+                        google.charts.load('current', {
+                            'packages' : [ 'corechart' ]
+                        });
+                        google.charts.setOnLoadCallback(function() {
+                            drawChart(result);
+                        });
+                    }
+                });
+
+                function drawChart(result) {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Name');
+                    data.addColumn('number', 'User');
+                    var dataArray = [];
+                    $.each(result, function(i, obj) {
+                        dataArray.push([ obj.total_violation, parseInt(obj.Number) ]);
+                    });
+
+                    data.addRows(dataArray);
+
                     var area_options = {
                         // title : 'Donut Chart: address wise Participant',
-                                        
-                        legend: 'none'
+                        legend: 'bottom'
                     };
                     var areachart = new google.visualization.AreaChart(document.getElementById('chart_div'))
                     areachart.draw(data, area_options);
+                } 
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                $.ajax({
+                    url : "datavis4.php",
+                    dataType : "JSON",
+                    success : function(result) {
+                        google.charts.load('current', {
+                            'packages' : [ 'corechart' ]
+                        });
+                        google.charts.setOnLoadCallback(function() {
+                            drawChart(result);
+                        });
+                    }
+                });
+
+                function drawChart(result) {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Name');
+                    data.addColumn('number', 'Users');
+                    var dataArray = [];
+                    $.each(result, function(i, obj) {
+                        dataArray.push([ obj.business, parseInt(obj.Number) ]);
+                    });
+
+                    data.addRows(dataArray);
+                    var piechart_options = {
+                        // title : 'Pie Chart: address wise Participant',
+                        
+                        legend: { position: 'right' }
+                    };
+                    var piechart = new google.visualization.PieChart(document
+                            .getElementById('piechart_div4'));
+                    piechart.draw(data, piechart_options);
                 } 
 
             });
