@@ -1,5 +1,6 @@
 <?php
     session_start();
+    header("Cache-Control: no cache");
     include "../auth/db.php";
     include "../auth/dbController.php";
     $db_handle = new DBController();
@@ -306,7 +307,17 @@
                             <div class="row mt-1">
                                 <div class="col-sm-12">
                                     <div class="input-group input-group-merge">
-                                        <input name="search" type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                                        <input class="form-control search-product" list="search" type="text" class="form-control" placeholder="Search Here" name="search" aria-describedby="shop-search" autocomplete="off" />
+                                            <datalist id="search">
+                                                <?php
+                                                    $search_sql = "SELECT product_name FROM products";
+                                                    $search_result=mysqli_query($conn,$search_sql); 
+                                                    while($row = $search_result->fetch_array())
+                                                    {
+                                                        echo "<option value='".$row['product_name']."'></option>";
+                                                    }                                                    
+                                                ?>
+                                            </datalist>
                                         <div class="input-group-append">
                                             <button name="search_products" type="submit" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
                                         </div>

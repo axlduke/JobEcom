@@ -329,27 +329,27 @@
                                                 <small><a href="javascript:void(0);" class="text-body">Company: <?= $r['job_company']?></a></small>
                                             </div>
                                         </div>
-                                        <div class="my-1 py-25">
+                                        <div class="my-1 py-25" style="text-align: center;">
                                         <h7 class="card-title"><?= $r['job_title']?></h7><br>
                                         </div>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job Experience</h7><br>
                                             <?= $r['job_experience']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job Qualification</h7><br>
                                             <?= $r['job_qualification']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job About</h7><br>
                                             <?= $r['job_about']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2" style="text-align: right;">
                                             <?php                                             
                                                 echo $status;
                                             ?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: right;">
                                             <?php  
                                             if ($status!=null) {
                                                 if($rows['status']=='Pending'){
@@ -365,7 +365,8 @@
                                                 <input name="job_id" class="hidden" type="text" value="'.$post.'">
                                                 <input name="user_id" class="hidden" type="text" value="'.$user_id.'">
                                                 <input name="fname" class="hidden" type="text" value="'.$fname.'">
-                                                <button name="apply" type="submit" class="btn btn-primary mr-1">&nbsp  Apply  &nbsp &nbsp</button>
+                                                <div style="text-align: right;">
+                                                <button name="apply" type="submit" class="btn btn-primary mr-1">&nbsp  Apply  &nbsp &nbsp</button></div>
                                                 </form>  ';
                                             }   
                                             ?>

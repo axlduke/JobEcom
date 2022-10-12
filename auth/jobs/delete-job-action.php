@@ -5,8 +5,8 @@
     $query = "DELETE FROM jobs_post WHERE post_id ='$id'";
     $result = mysqli_query($conn, $query);
     if($result){
-        $_SESSION['status_icon'] = "success";
-        $_SESSION['status_title'] = "Success!";
+        $_SESSION['status_icon'] = "error";
+        $_SESSION['status_title'] = "Deleted!";
         $_SESSION['status_text'] = "Job Deleted.";         
         header("Location: ../../job/posted-jobs.php");      
     }    
