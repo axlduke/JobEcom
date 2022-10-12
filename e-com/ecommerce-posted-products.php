@@ -64,6 +64,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">         
 
 </head>
 <!-- END: Head-->
@@ -413,7 +415,7 @@
                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                             <span>Edit</span>
                                                         </a>  
-                                                        <a class="dropdown-item"  href="../auth/e-commerce/ecommerce-post-product-action.php?id='.$product_id.'">
+                                                        <a class="dropdown-item"  href="../auth/e-commerce/delete-product.php?id='.$product_id.'">
                                                             <i data-feather="trash" class="mr-50"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -511,7 +513,7 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <label for="email-id-column">Description</label>
-                                                                                            <textarea name="product_description" class="form-control" id="exampleFormControlTextarea1" rows="3" value="'.$product_description.'" placeholder="'.$product_description.'" required></textarea>
+                                                                                            <textarea name="product_description" class="form-control" id="exampleFormControlTextarea1" rows="3" value="'.$product_description.'" required>'.$product_description.'</textarea>
                                                                                                 <div style="text-align:right;" class="col-12">
                                                                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                                                                                 <button name="post_update" type="btn" class="btn btn-primary mr-1">Submit</button>
@@ -606,6 +608,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>        
 <!--     <script>
         $('.prod_id').click(function(){
     //get cover id
