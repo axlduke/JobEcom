@@ -13,6 +13,9 @@ $sql = "UPDATE applicants SET status = '$status' WHERE `user_id` ='$user' and jo
         $result = mysqli_query($conn, $sql);
         if($result){
             // echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $_SESSION['status_icon'] = "error";
+            $_SESSION['status_title'] = "Declined!";
+            $_SESSION['status_text'] = "Application Declined!";            
             header('location: ../../job/applicants-list.php');
             // echo "Error";
         }

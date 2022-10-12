@@ -12,6 +12,9 @@
         $post ="INSERT INTO jobs_post (employer_id, job_company, job_title, job_experience, job_qualification, date_posted, job_about) VALUES ('$employer_id','$job_company','$job_title','$job_experience','$job_qualification','$date','$job_about')";
         $result = mysqli_query($conn, $post);
         if($result){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Success!";
+            $_SESSION['status_text'] = "Job Posted!";            
             header("Location: ../../job/posted-jobs.php");
         }
          else {
@@ -30,16 +33,24 @@
         $post ="UPDATE jobs_post SET job_company='$job_company', job_title='$job_title', job_experience='$job_experience', job_qualification='$job_qualification', date_posted = '$date', job_about='$job_about' WHERE employer_id ='$employer_id' and post_id ='$job_id'";
         $result = mysqli_query($conn, $post);
         if($result){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Success!";
+            $_SESSION['status_text'] = "Job Updated!";            
             header("Location: ../../job/posted-jobs.php");
+
         }
          else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
-    $id = $_GET['post_id'];
-    $query = "DELETE FROM jobs_post WHERE post_id ='$id' ";
-    if($conn->query($query) === TRUE){
-        header("Location: ../../job/posted-jobs.php");
-    }    
+    // $id = $_GET['post_id'];
+    // $query = "DELETE FROM jobs_post WHERE post_id ='$id'";
+    // $result = mysqli_query($conn, $query);
+    // if($result){
+    //     $_SESSION['status_icon'] = "success";
+    //     $_SESSION['status_title'] = "Success!";
+    //     $_SESSION['status_text'] = "Job Deleted.";         
+    //     header("Location: ../../job/posted-jobs.php");      
+    // }    
 ?>
 

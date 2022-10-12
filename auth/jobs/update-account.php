@@ -29,7 +29,9 @@
             else{
                 move_uploaded_file($file_tmp1, $location.$file1);
             }
-            
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Account Updated!";
+            $_SESSION['status_text'] = "You have successfully updated your account";            
             header('location: ../../job/employer-account-settings.php');
             // echo "Error";
         }

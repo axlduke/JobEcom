@@ -214,7 +214,7 @@
                                         </div>
                                     </div>
                                     <h2 class="font-weight-bolder mt-1"><?=$total_employees?></h2>
-                                    <p class="card-text">Total Applicants</p>
+                                    <p class="card-text">Total Applicants Applied</p>
                                 </div>
                                 <div id="gained-chart"></div>
                             </div>
@@ -396,7 +396,7 @@
         animationEnabled: true,
         exportEnabled: true,
         title:{
-            text: "Jobs posted"
+            text: "Jobs: Total Employees "
         },
         subtitles: [{
             text: ""

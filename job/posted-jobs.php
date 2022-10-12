@@ -71,7 +71,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <!-- END: Custom CSS-->
-
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">  
 
 </head>
 <!-- END: Head-->
@@ -218,7 +219,7 @@
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="brand-name-column">Job Company</label>
-                                                                                <input type="text" class="form-control" placeholder="About" name="job_company" required />
+                                                                                <input type="text" class="form-control" placeholder="About" name="job_company" value="<?=$company?>" disabled />
                                                                             </div>
                                                                         </div>                       
                                                                         <div class="col-md-6 col-12">
@@ -293,7 +294,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-1" data-toggle="modal" data-target="#backdrop<?php echo $row['post_id']?>"><?php echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Edit &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;'; ?></button>
-                                <a href="../auth/jobs/post-jobs.php?post_id=<?=$post_id?>" type="submit" class="btn btn-primary mr-1"><?php echo '&nbsp;&nbsp; Delete  &nbsp;&nbsp;'; ?></a>
+                                <a href="../auth/jobs/delete-job-action.php?post_id=<?=$post_id?>" type="submit" class="btn btn-primary mr-1"><?php echo '&nbsp;&nbsp; Delete  &nbsp;&nbsp;'; ?></a>
 
                                 <!-- UPDATE POST -->
                                 <div class="modal fade text-left" id="backdrop<?php echo $row['post_id']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
@@ -315,30 +316,30 @@
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="brand-name-column">Job Company</label>
-                                                                                <input type="text" class="form-control" placeholder="About" name="job_company" required />
+                                                                                <input type="text" class="form-control" value="<?=$company?>"name="job_company" disabled />
                                                                                 <input type="hidden" value="<?=$post_id?>" class="form-control" placeholder="About" name="job_id" />
                                                                             </div>
                                                                         </div>                       
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="product-name-column">Job Title</label>
-                                                                                <input type="text" class="form-control" placeholder="Job title" name="job_title" required />
+                                                                                <input type="text" class="form-control" value="<?=$row['job_title']?>" name="job_title" required />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="category-column">Job Experience</label>
-                                                                                <input type="text" id="category-column" class="form-control" placeholder="Experience" name="job_experience" required/>
+                                                                                <input type="text" id="category-column" class="form-control" value="<?=$row['job_experience']?>" name="job_experience" required/>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="quantity-column">Job Qualification</label>
-                                                                                <input type="text" id="quantity-column" class="form-control" name="job_qualification" placeholder="Qualification" required/>
+                                                                                <input type="text" id="quantity-column" class="form-control" name="job_qualification" value="<?=$row['job_qualification']?>" required/>
                                                                             </div>
                                                                         </div>                                                                
                                                                         </div><label for="email-id-column">Description</label>
-                                                                        <textarea name="job_about" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required></textarea><br>
+                                                                        <textarea name="job_about" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required><?=$row['job_about']?></textarea><br>
                                                                         <!-- <button name="post" type="btn" class="btn btn-primary mr-1">Submit</button> -->
                                                                         <button type="btn" name="update" class="btn btn-primary mr-1">Submit</button>
                                                                 </form>
@@ -425,6 +426,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>    
 </body>
 <!-- END: Body-->
 
