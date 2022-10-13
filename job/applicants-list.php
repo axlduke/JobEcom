@@ -225,8 +225,7 @@
                                                                 <th>Name</th>
                                                                 <th class="text-center">Date Applied</th>
                                                                 <th class="text-center">View Acc.</th>
-                                                                <th class="text-center">...</th>
-                                                                <th class="text-center">...</th>
+                                                                <th class="text-center" colspan="2">Action&nbsp;</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -256,30 +255,26 @@
                                                                     if($get_row['status'] == 'Pending'){
                                                                         echo $_SESSION['show'] = '
                                                                     <td class="text-center">
-                                                                        <a href="../auth/jobs/applicants-accept-action.php?user='.$fetch['user_id'].'&job='.$get_row['job_id'].'">
+                                                                        <a href="../auth/jobs/applicants-accept-action.php?user='.$fetch['user_id'].'&job='.$get_row['job_id'].'&email='.$fetch['email'].'&job_title='.$row['job_title'].'&employer_name='.$fname.'">
                                                                             <div class="badge badge-pill badge-light-success">Accept</div>
                                                                         </a>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <a href="../auth/jobs/applicant-decline-action.php?user='.$fetch['user_id'].'&job='.$get_row['job_id'].'">
+                                                                        <a href="../auth/jobs/applicant-decline-action.php?user='.$fetch['user_id'].'&job='.$get_row['job_id'].'&email='.$fetch['email'].'&job_title='.$row['job_title'].'&employer_name='.$fname.'">
                                                                             <div class="badge badge-pill badge-light-danger">Decline</div>
                                                                         </a>
                                                                     </td>
                                                                     ';
                                                                     }elseif($get_row['status'] != 'Pending'){
                                                                         if ($get_row['status'] != 'Accepted') {
-                                                                        echo '<td class="text-center">
-                                                                            <div class="badge badge-pill badge-light-secondary">-----</div>
-                                                                        </td>';
-                                                                        echo '<td class="text-center">
-                                                                            <div class="badge badge-pill badge-light-danger">'.$get_row['status'].'</div></td>';
+                                                                        echo '
+
+                                                                        <td class="text-center" colspan="2">Status: 
+                                                                            <div class="badge badge-pill badge-light-danger">'.$get_row['status'].'&nbsp;</div></td>';
                                                                         }                                                                        
                                                                         else{
-                                                                        echo '<td class="text-center">
-                                                                            <div class="badge badge-pill badge-light-secondary">-----</div>
-                                                                        </td>';
-                                                                        echo '<td class="text-center">
-                                                                            <div class="badge badge-pill badge-light-success">'.$get_row['status'].'</div></td>';
+                                                                        echo '<td class="text-center"  colspan="2">Status: 
+                                                                            <div class="badge badge-pill badge-light-success">'.$get_row['status'].'&nbsp;</div></td>';
                                                                         }
    
                                                                     }
