@@ -362,7 +362,7 @@
                                         </div>
                                         <div class="media-body">
                                             <h5 class="mb-0"><?=$row['fname']?></h5>
-                                            <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['job_company']?></div> 
+                                            <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['company']?></div> 
                                         </div>
                                     </div>                    
                                 </div>
