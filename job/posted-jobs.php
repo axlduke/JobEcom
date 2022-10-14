@@ -27,7 +27,7 @@
             header('location: ../form/login.php');
         }
     }
-    $jobs_posted="SELECT *,SUBSTRING(job_about, 1, 300) as job_about,SUBSTRING(job_qualification, 1, 100) as qualification from jobs_post where employer_id = ".$_SESSION['user_id'];
+    $jobs_posted="SELECT *,SUBSTRING(job_about, 1, 300) as job_about, SUBSTRING_INDEX(job_qualification, ',', 3) as qualification from jobs_post where employer_id = ".$_SESSION['user_id'];
     $result=mysqli_query($conn,$jobs_posted);
 ?>
 <!DOCTYPE html>
@@ -215,33 +215,20 @@
                                                     <div class="col-12">
                                                             <div class="card-body">
                                                                 <form action="../auth/jobs/post-jobs.php" method="POST">
-                                                                    <div class="row">  
-                                                                        <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="brand-name-column">Job Company</label>
-                                                                                <input type="text" class="form-control" placeholder="About" name="job_company" value="<?=$company?>" disabled />
-                                                                            </div>
-                                                                        </div>                       
-                                                                        <div class="col-md-6 col-12">
+                                                                                <input type="text" class="form-control" value="<?=$company?>"name="job_company" disabled />
+                                                                            </div>                     
                                                                             <div class="form-group">
                                                                                 <label for="product-name-column">Job Title</label>
-                                                                                <input type="text" class="form-control" placeholder="Job title" name="job_title" required />
+                                                                                <input type="text" class="form-control"  name="job_title" required />
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-12">
-                                                                            <div class="form-group">
-                                                                                <label for="category-column">Job Experience</label>
-                                                                                <input type="text" id="category-column" class="form-control" placeholder="Experience" name="job_experience" required/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-12">
-                                                                            <div class="form-group">
-                                                                                <label for="quantity-column">Job Qualification</label>
-                                                                                <input type="text" id="quantity-column" class="form-control" name="job_qualification" placeholder="Qualification" required/>
-                                                                            </div>
-                                                                        </div>                                                                
-                                                                        </div><label for="email-id-column">Description</label>
-                                                                        <textarea name="job_description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required></textarea><br>
+                                                                        <label for="email-id-column">Job Experience</label>
+                                                                        <textarea name="job_experience" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required></textarea>
+                                                                        <label for="email-id-column">Qualification</label>
+                                                                        <textarea name="job_qualification" class="form-control" id="exampleFormControlTextarea2" rows="3" placeholder="Type here."required></textarea>
+                                                                        <label for="email-id-column">Description</label>
+                                                                        <textarea name="job_about" class="form-control" id="exampleFormControlTextarea3" rows="3" placeholder="Type here."required></textarea><br>
                                                                         <!-- <button name="post" type="btn" class="btn btn-primary mr-1">Submit</button> -->
                                                                         <button type="btn" name="post" class="btn btn-primary mr-1">Submit</button>
                                                                 </form>
@@ -264,9 +251,12 @@
                 <?php
                     if (mysqli_num_rows($result) > 0) {
                     $i=0;
+                    $b = "&#8226;    ";
+                    $dot = "."; 
                     while($row = mysqli_fetch_array($result)) {
                         $post_id = $row['post_id'];
                         $date_posted = $row['date_posted'];
+                         $arr_string = explode(",",$row['qualification']);
                 ?>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="card card-apply-job">
@@ -278,7 +268,7 @@
                                         </div>
                                         <div class="media-body">
                                             <h5 class="mb-0"><?=$fname?></h5>
-                                            <small class="text-muted"><?=$date_posted?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['job_company']?></div> 
+                                            <small class="text-muted"><?=$date_posted?></small><br><div class="badge badge-pill badge-light-primary"><?=$company?></div> 
                                         </div>
                                     </div>                    
                                 </div>
@@ -289,7 +279,12 @@
                                 <div class="apply-job-package bg-light-primary rounded">
                                     <div><div class="badge badge-pill badge-light-primary">Qualifications :</div>
                                         <div>
-                                        <sub class="text-body"><small><?=$row['qualification']?></small></sub>
+                                        <sub class="text-body"><small><?php   
+                                          foreach($arr_string as $str){
+                                                echo $b. $str . "<br />";
+                                            }
+                                            ?>
+                                        </small></sub>
                                         </div>
                                     </div>
                                 </div>
@@ -312,39 +307,25 @@
                                                     <div class="col-12">
                                                             <div class="card-body">
                                                                 <form action="../auth/jobs/post-jobs.php" method="POST">
-                                                                    <div class="row">  
-                                                                        <div class="col-md-6 col-12">
                                                                             <div class="form-group">
                                                                                 <label for="brand-name-column">Job Company</label>
                                                                                 <input type="text" class="form-control" value="<?=$company?>"name="job_company" disabled />
                                                                                 <input type="hidden" value="<?=$post_id?>" class="form-control" placeholder="About" name="job_id" />
-                                                                            </div>
-                                                                        </div>                       
-                                                                        <div class="col-md-6 col-12">
+                                                                            </div>                     
                                                                             <div class="form-group">
                                                                                 <label for="product-name-column">Job Title</label>
                                                                                 <input type="text" class="form-control" value="<?=$row['job_title']?>" name="job_title" required />
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-12">
-                                                                            <div class="form-group">
-                                                                                <label for="category-column">Job Experience</label>
-                                                                                <input type="text" id="category-column" class="form-control" value="<?=$row['job_experience']?>" name="job_experience" required/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-12">
-                                                                            <div class="form-group">
-                                                                                <label for="quantity-column">Job Qualification</label>
-                                                                                <input type="text" id="quantity-column" class="form-control" name="job_qualification" value="<?=$row['job_qualification']?>" required/>
-                                                                            </div>
-                                                                        </div>                                                                
-                                                                        </div><label for="email-id-column">Description</label>
-                                                                        <textarea name="job_about" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required><?=$row['job_about']?></textarea><br>
+                                                                        <label for="email-id-column">Job Experience</label>
+                                                                        <textarea name="job_experience" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required><?=$row['job_experience']?></textarea>
+                                                                        <label for="email-id-column">Qualification</label>
+                                                                        <textarea name="job_qualification" class="form-control" id="exampleFormControlTextarea2" rows="3" placeholder="Type here."required><?=$row['job_qualification']?></textarea>                      
+                                                                        <label for="email-id-column">Description</label>
+                                                                        <textarea name="job_about" class="form-control" id="exampleFormControlTextarea3" rows="3" placeholder="Type here."required><?=$row['job_about']?></textarea><br>
                                                                         <!-- <button name="post" type="btn" class="btn btn-primary mr-1">Submit</button> -->
                                                                         <button type="btn" name="update" class="btn btn-primary mr-1">Submit</button>
                                                                 </form>
                                                             </div>
-                                                            
                                                     </div>
                                                 </div>
                                             </section>                                                                                                            
@@ -355,7 +336,9 @@
                             </div>
                         </div>
                     </div>
-                    <?php }}?>
+                    <?php }}                        
+                       
+                        ?>
                     <!--/ Apply Job Card -->
                 </div>
                 </div>

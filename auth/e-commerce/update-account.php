@@ -18,6 +18,10 @@
         pictures = '$file1' WHERE `user_id` ='$user_id'";
         $result = mysqli_query($conn, $sql1);
         if($result){
+            if ($_FILES['profile']['size'] == 0 && $_FILES['profile']['error'] == 0){
+                // code...
+            }
+            else{
             move_uploaded_file($file_tmp1, $location.$file1);
             header('location: ../../e-com/page-account-settings.php');
             // echo "Error";
