@@ -32,6 +32,9 @@ $seller_id = $_SESSION['user_id'];
             move_uploaded_file($file_tmp3, $location.$file3);
             move_uploaded_file($file_tmp4, $location.$file4);
             move_uploaded_file($file_tmp5, $location.$file5);
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Product Posted!";
+            $_SESSION['status_text'] = "You have successfully posted your product";              
             header('location: ../../e-com/ecommerce-posted-products.php');
             
         }
@@ -50,14 +53,17 @@ $seller_id = $_SESSION['user_id'];
         $sql = "UPDATE products SET brand = '$brand', product_name = '$product_name', quantity = '$quantity',price = '$price',product_description = '$product_description', product_category = '$product_category' WHERE product_id = '$product_id' and seller_id = '$seller_id'";
         $result = mysqli_query($conn, $sql); 
         if($result){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Product Updated!";
+            $_SESSION['status_text'] = "You have successfully updated your product";              
            header('location: ../../e-com/ecommerce-posted-products.php');
         }
     }
 
-    $id = $_GET['id'];
-    $query = "DELETE FROM products WHERE product_id ='$id' ";
-    if($conn->query($query) === TRUE){
-        header('location: ../../e-com/ecommerce-posted-products.php');
-    }
+    // $id = $_GET['id'];
+    // $query = "DELETE FROM products WHERE product_id ='$id' ";
+    // if($conn->query($query) === TRUE){
+    //     header('location: ../../e-com/ecommerce-posted-products.php');
+    // }
 
 ?>

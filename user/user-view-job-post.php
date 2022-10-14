@@ -61,7 +61,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
-
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">      
 </head>
 <!-- END: Head-->
 
@@ -164,7 +165,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -328,27 +329,27 @@
                                                 <small><a href="javascript:void(0);" class="text-body">Company: <?= $r['job_company']?></a></small>
                                             </div>
                                         </div>
-                                        <div class="my-1 py-25">
+                                        <div class="my-1 py-25" style="text-align: center;">
                                         <h7 class="card-title"><?= $r['job_title']?></h7><br>
                                         </div>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job Experience</h7><br>
                                             <?= $r['job_experience']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job Qualification</h7><br>
                                             <?= $r['job_qualification']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
                                             <h7 class="card-title">Job About</h7><br>
                                             <?= $r['job_about']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2" style="text-align: right;">
                                             <?php                                             
                                                 echo $status;
                                             ?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: right;">
                                             <?php  
                                             if ($status!=null) {
                                                 if($rows['status']=='Pending'){
@@ -364,7 +365,8 @@
                                                 <input name="job_id" class="hidden" type="text" value="'.$post.'">
                                                 <input name="user_id" class="hidden" type="text" value="'.$user_id.'">
                                                 <input name="fname" class="hidden" type="text" value="'.$fname.'">
-                                                <button name="apply" type="submit" class="btn btn-primary mr-1">&nbsp  Apply  &nbsp &nbsp</button>
+                                                <div style="text-align: right;">
+                                                <button name="apply" type="submit" class="btn btn-primary mr-1">&nbsp  Apply  &nbsp &nbsp</button></div>
                                                 </form>  ';
                                             }   
                                             ?>
@@ -426,6 +428,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>         
 </body>
 <!-- END: Body-->
 

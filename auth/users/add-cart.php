@@ -12,6 +12,9 @@
             $update = "UPDATE cart set quantity=quantity+$quantity  WHERE user_id = '$user_id' AND product_id ='$product_id'";
             $res = mysqli_query($conn, $update);
             if($res){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Success!";
+            $_SESSION['status_text'] = "This item has been added to your cart";                  
                 $referer = $_SERVER['HTTP_REFERER'];
                 header("Location: $referer"); 
                 }            
@@ -19,6 +22,9 @@
         $sql = "INSERT INTO `cart`(`product_id`, `user_id`, `seller_id`, `quantity`) VALUES ('$product_id','$user_id','$seller_id','$quantity')";
         $result = mysqli_query($conn, $sql);
         if($result){
+            $_SESSION['status_icon'] = "success";
+            $_SESSION['status_title'] = "Success!";
+            $_SESSION['status_text'] = "This item has been added to your cart";              
             $referer = $_SERVER['HTTP_REFERER'];
             header("Location: $referer"); 
             }

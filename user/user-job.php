@@ -34,7 +34,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="author" content="PIXINVENT">
-    <title>Jobs Post Page</title>
+    <title>Jobs</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -66,7 +66,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
-
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">   
     <!-- autocomplete search -->
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -172,7 +173,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -291,7 +292,17 @@
                                 <div class="col-sm-12 search-box">
                                     <div class="input-group input-group-merge">
                                         <!-- autocomplete -->
-                                        <input type="text" class="form-control search-product typeahead-devs" name="search" id="txtCountry" autocomplete="off" placeholder="Search Jobs" aria-label="Search..." aria-describedby="shop-search" />
+                                        <input class="form-control search-product" list="search" type="text" class="form-control" placeholder="Search Here" name="search" aria-describedby="shop-search" autocomplete="off" />
+                                            <datalist id="search">
+                                                <?php
+                                                    $search_sql = "SELECT job_title FROM jobs_post";
+                                                    $search_result=mysqli_query($conn,$search_sql); 
+                                                    while($row = $search_result->fetch_array())
+                                                    {
+                                                        echo "<option value='".$row['job_title']."'></option>";
+                                                    }                                                    
+                                                ?>
+                                            </datalist>                                        
                                         <!-- <input type="text" id="txtCountry"> -->
                                         <div class="input-group-append">
                                             <button name="search_position" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
@@ -309,8 +320,7 @@
                         <div class="card">
                         <div class="card-body">
                             <div class="mt-4 mb-2 text-center">
-                                <h4>Trending Jobs Recommendation that suites you</h4>
-                                <p class="card-text">People also search for this jobs</p>
+                                <h4>Trending Jobs</h4>
                             </div>                          
                             <div class="swiper-responsive-breakpoints swiper-container px-12 py5">
                                 <div class="swiper-wrapper">
@@ -344,7 +354,7 @@
                                     $result = $conn->query($sql);
                                     while($rows = $result->fetch_array()){
                                         $jid = $rows['job_id'];
-                                        $jobs_related="SELECT *,SUBSTRING(jobs_post.job_about, 1, 170) as job_about,SUBSTRING(jobs_post.job_qualification, 1, 91) as qualification,SUBSTRING(jobs_post.job_title, 1, 45) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id where jobs_post.post_id = '$jid' order by rand()"; 
+                                        $jobs_related="SELECT *,SUBSTRING(jobs_post.job_about, 1, 170) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 45) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id where jobs_post.post_id = '$jid' order by rand()"; 
                                          $results=mysqli_query($conn,$jobs_related);           
                                          while($row = mysqli_fetch_array($results)) { 
                                             $post_id = $row['post_id'];
@@ -414,14 +424,17 @@
                 <div class="row match-height">
                     <!-- Apply Job Card -->
                 <?php
-                    $jobs_posted="SELECT *,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING(jobs_post.job_qualification, 1, 105) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id order by rand()";
+                    $jobs_posted="SELECT *,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id order by rand()";
                     $result=mysqli_query($conn,$jobs_posted);
                     if (mysqli_num_rows($result) > 0) {
                     $i=0;
+                    $b = "&#8226;    ";
+                    $dot = ".";                     
                     while($row = mysqli_fetch_array($result)) {
                         $post_id = $row['post_id'];
                         $date_posted = $row['date_posted'];
                         $employer_id = $row['employer_id'];
+                        $arr_string = explode(",",$row['qualification']);                        
                 ?>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="card card-apply-job">
@@ -433,7 +446,7 @@
                                         </div>
                                         <div class="media-body">
                                             <h5 class="mb-0"><?=$row['fname']?></h5>
-                                            <small class="text-muted"><?=$date_posted?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['job_company']?></div> 
+                                            <small class="text-muted"><?=$date_posted?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['company']?></div> 
                                         </div>
                                     </div>                    
                                 </div>
@@ -444,7 +457,13 @@
                                 <div class="apply-job-package bg-light-primary rounded">
                                     <div><div class="badge badge-pill badge-light-primary">Qualifications :</div>
                                         <div>
-                                        <sub class="text-body"><small><?=$row['qualification']?></small></sub>
+                                        <sub class="text-body"><small>
+                                            <?php   
+                                          foreach($arr_string as $str){
+                                                echo $b. $str . "<br />";
+                                            }
+                                            ?>  
+                                            </small></sub>
                                         </div>
                                     </div>
                                 </div>
@@ -542,6 +561,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>         
 </body>
 <!-- END: Body-->
 

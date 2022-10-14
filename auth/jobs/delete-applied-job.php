@@ -12,7 +12,9 @@ $status = 'Accepted';
 $sql = "DELETE FROM applicants WHERE `user_id` ='$user' and job_id =$job_post";
         $result = mysqli_query($conn, $sql);
         if($result){
-            // echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $_SESSION['status_icon'] = "error";
+            $_SESSION['status_title'] = "Canceled!";
+            $_SESSION['status_text'] = "Your application has been Canceled";  
             header('location: ../../user/user-jobs-applied-list.php');
             // echo "Error";
         }

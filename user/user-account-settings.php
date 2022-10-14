@@ -35,17 +35,7 @@
         $exp_3 = $row['exp_3'];
         $exp_4 = $row['exp_4'];
         $exp_5 = $row['exp_5'];
-        $educ_1 = $row['educ_1'];
-        $educ_2 = $row['educ_2'];
-        $educ_3 = $row['educ_3'];
-        $educ_4 = $row['educ_4'];
-        $educ_5 = $row['educ_5'];      
-        $cert_1 = $row['cert_1'];
-        $cert_2 = $row['cert_2'];
-        $cert_3 = $row['cert_3'];
-        $cert_4 = $row['cert_4'];
-        $cert_5 = $row['cert_5'];
-        $cert_6 = $row['cert_6'];
+        $pdf_certificate = $row['pdf_certificate'];
         $resume = $row['pdf_file'];
         $cover = $row['pdf_cover'];
     }
@@ -90,6 +80,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">       
 
 </head>
 <!-- END: Head-->
@@ -184,7 +176,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -524,29 +516,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_1" type="file" id="account-upload" value="<?php if (!empty($cert_1)){ echo $cert_1;} else{ echo '';}?>" accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb</p>
+                                                        <input name="pdf_certificate" accept=".pdf" type="file"/>
+                                                        <p>Allowed only PDF file for certificates</p>
                                                     </div>                                                    
-                                                    <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_2" type="file" id="account-upload" value="<?php if (!empty($cert_2)){ echo $cert_2;} else{ echo '';}?>" accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb</p>
-                                                    </div>
-                                                    <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_3" type="file" id="account-upload" value="<?php if (!empty($cert_3)){ echo $cert_3;} else{ echo '';}?>" accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb</p>
-                                                    </div>
-                                                    <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_4" type="file" id="account-upload" value="<?php if (!empty($cert_4)){ echo $cert_4;} else{ echo '';}?>" accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb</p>
-                                                    </div>
-                                                    <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_5" type="file" id="account-upload" value="<?php if (!empty($cert_5)){ echo $cert_5;} else{ echo '';}?>"  accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb</p>
-                                                    </div>
-                                                    <div class="media-body mt-75 ml-1">
-                                                        <input name="cert_6" type="file" id="account-upload" value="<?php if (!empty($cert_6)){ echo $cert_6;} else{ echo '';}?>"  accept="image/*" />
-                                                        <p>Allowed JPG PNG. Max size of 10mb </p>
-                                                    </div>
                                                     <div class="media-body mt-75 ml-1">
                                                         <input name="pdf_file" accept=".pdf" type="file"/>
                                                         <p>Allowed only PDF file for resume</p>
@@ -557,12 +529,7 @@
                                                         <!-- <input type="file" accept=".pdf"> -->
                                                         <p>Allowed only PDF file for cover</p>
                                                     </div>
-                                                    <input name="cert_1" type="hidden" value="<?php if (!empty($cert_1)){ echo $cert_1;} else{ echo '';}?>">
-                                                    <input name="cert_2" type="hidden" value="<?php if (!empty($cert_2)){ echo $cert_2;} else{ echo '';}?>">   
-                                                    <input name="cert_3" type="hidden" value="<?php if (!empty($cert_3)){ echo $cert_3;} else{ echo '';}?>">
-                                                    <input name="cert_4" type="hidden" value="<?php if (!empty($cert_4)){ echo $cert_4;} else{ echo '';}?>">
-                                                    <input name="cert_5" type="hidden" value="<?php if (!empty($cert_5)){ echo $cert_5;} else{ echo '';}?>">
-                                                    <input name="cert_6" type="hidden" value="<?php if (!empty($cert_6)){ echo $cert_6;} else{ echo '';}?>">
+                                                    <input name="pdf_certificate" type="hidden" value="<?php if (!empty($pdf_certificate)){ echo $pdf_certificate;} else{ echo '';}?>">
                                                     <input name="cover" type="text" class="hidden" value="<?php if (!empty($cover)){ echo $cover;} else{ echo '';}?>"  />
                                                     <input name="resume" type="text" class="hidden" value="<?php if (!empty($resume)){ echo $resume;} else{ echo '';}?>"  />                           
                                                     <div class="col-12">
@@ -695,6 +662,28 @@
         })
     </script>
 </body>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?>   
+
 <!-- END: Body-->
 
 </html>

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    header("Cache-Control: no cache");
     include "../auth/db.php";
     
     if (!isset($_SESSION['user_id'])){
@@ -64,6 +65,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">       
 
 </head>
 <!-- END: Head-->
@@ -164,7 +167,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -282,7 +285,17 @@
                             <div class="row mt-1">
                                 <div class="col-sm-12 search-box">
                                     <div class="input-group input-group-merge">
-                                        <input type="text" class="form-control search-product"name="search"  id="shop-search" autocomplete="off" placeholder="Search Jobs" aria-label="Search..." aria-describedby="shop-search" />
+                                        <input class="form-control search-product" list="search" id="search" type="text" class="form-control" placeholder="Search Here" name="search" aria-describedby="shop-search" autocomplete="off" />
+                                            <datalist id="search">
+                                                <?php
+                                                    $search_sql = "SELECT job_title FROM jobs_post";
+                                                    $search_result=mysqli_query($conn,$search_sql); 
+                                                    while($row = $search_result->fetch_array())
+                                                    {
+                                                        echo "<option value='".$row['job_title']."'></option>";
+                                                    }                                                    
+                                                ?>
+                                            </datalist>     
                                         <div class="input-group-append">
                                             <button name="search_position" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
                                         </div>
@@ -298,7 +311,8 @@
                     <!-- E-commerce Products Starts -->
                     <div class="row match-height">
                         <?php
-
+                                $b = "&#8226;    ";
+                                $dot = ".";    
                             if (isset($_POST['search_position'])) {
                                 $connection_string = new mysqli("localhost", "root", "", "propose");
                                 $searchString = mysqli_real_escape_string($connection_string, trim(htmlentities($_POST['search'])));
@@ -315,7 +329,7 @@
                                     $searchString = "%$searchString%";
 
                                     // The prepared statement
-                                    $sql = "SELECT *,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING(jobs_post.job_qualification, 1, 105) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id WHERE jobs_post.job_title LIKE ? ORDER BY rand()";
+                                    $sql = "SELECT *,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id WHERE jobs_post.job_title LIKE ? ORDER BY rand()";
 
                                     // Prepare, bind, and execute the query
                                     $prepared_stmt = $connection_string->prepare($sql);
@@ -336,6 +350,7 @@
                                         while ($row = $result->fetch_assoc()) {
                                         $employer_id = $row['employer_id'];
                                         $post_id = $row['post_id'];
+                                        $arr_string = explode(",",$row['qualification']);    
                         ?>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="card card-apply-job">
@@ -347,7 +362,7 @@
                                         </div>
                                         <div class="media-body">
                                             <h5 class="mb-0"><?=$row['fname']?></h5>
-                                            <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['job_company']?></div> 
+                                            <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['company']?></div> 
                                         </div>
                                     </div>                    
                                 </div>
@@ -358,7 +373,12 @@
                                 <div class="apply-job-package bg-light-primary rounded">
                                     <div><div class="badge badge-pill badge-light-primary">Qualifications :</div>
                                         <div>
-                                        <sub class="text-body"><small><?=$row['qualification']?></small></sub>
+                                        <sub class="text-body"><small>                                            
+                                            <?php   
+                                          foreach($arr_string as $str){
+                                                echo $b. $str . "<br />";
+                                            }
+                                            ?></small></sub>
                                         </div>
                                     </div>
                                 </div>
@@ -438,6 +458,27 @@
             }
         })
     </script>
+    <script src="../app-assets/js/scripts/extensions/ext-component-sweet-alerts.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>    
+<?php
+    if (isset($_SESSION['status_title']) && $_SESSION['status_title'] !='') {
+        // code...
+    
+?>    
+<script>
+Swal.fire({
+  icon: '<?php echo $_SESSION['status_icon']?>',
+  title: '<?php echo $_SESSION['status_title']?>',
+  text: '<?php echo $_SESSION['status_text']?>'
+})
+</script>    
+<?php
+    unset($_SESSION['status_icon']);
+    unset($_SESSION['status_title']);
+    unset($_SESSION['status_text']);
+}
+?> 
 </body>
 <!-- END: Body-->
 

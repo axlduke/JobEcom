@@ -24,7 +24,9 @@
                     header("location: ../../e-com/page-account-settings.php");
             } elseif($Npassword == $Rpassword){
                 $sql = mysqli_query($conn, "UPDATE user SET `password` = '{$Npassword}' WHERE user_id=".$_SESSION['user_id']);
-                echo $_SESSION['success'] = '<span class="badge badge-pill badge-light-success">Password Successfully Update</span>';
+                $_SESSION['status_icon'] = "success";
+                $_SESSION['status_title'] = "Password Changed!";
+                $_SESSION['status_text'] = "You have successfully updated your password";  
                 header("location: ../../e-com/page-account-settings.php");
             } elseif($Npassword != $Rpassword){
                 echo $_SESSION['success'] = '<span class="badge badge-pill badge-light-success">Password Does not Match</span>';

@@ -210,7 +210,7 @@
                                                     $address = $rows['address'];
                                                     $mode    = $rows['mode'];
                                                     $pictures = $rows['pictures'];
-                                                
+
                                         ?>
                                         <div class="profile-img">
                                             <img src="../img/profile/<?= $pictures?>" class="rounded img-fluid" alt="Card image" />
@@ -245,9 +245,6 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#experience" aria-controls="experience" role="tab" aria-selected="false">Experience</a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="about-tab" data-toggle="tab" href="#certificates" aria-controls="certificates" role="tab" aria-selected="false">Certificates</a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -268,7 +265,10 @@
                                     <?php
                                         $credentials = "SELECT * FROM `credentials` WHERE user_id = $id";
                                         $result1 = $conn->query($credentials);
-                                        while($rows = $result1->fetch_array()){
+                                        if($rows = $result1->fetch_array()){
+                                            $certificate = $rows['pdf_certificate'];
+                                            $pdf_file = $rows['pdf_file'];
+                                            $cover = $rows['pdf_cover'];                                            
                                     ?>
                                     <div class="tab-pane active" id="about" aria-labelledby="home-tab" role="tabpanel">
                                         <h3 class="mb-75">About</h3>
@@ -288,6 +288,18 @@
                                                 <h5 class="mb-75">Email:</h5>
                                                 <p class="card-text"><?= $email?></p>
                                             </div>
+                                            <div class="mt-2">
+                                                <h5 class="mb-75">Certificates</h5>
+                                                <a href="../img/credentials/<?= $certificate?>" download="<?= $certificate?>" class="badge badge-pill badge-light-info"><?= $certificate?></a>
+                                            </div>
+                                            <div class="mt-2">
+                                                <h5 class="mb-75">Resume</h5>
+                                                <a href="../img/credentials/<?= $pdf_file?>" download="<?= $pdf_file?>" class="badge badge-pill badge-light-info"><?= $pdf_file?></a>
+                                            </div>
+                                          <div class="mt-2">
+                                                <h5 class="mb-75">Cover</h5>
+                                                <a href="../img/credentials/<?= $cover?>" download="<?= $cover?>" class="badge badge-pill badge-light-info"><?= $cover?></a>
+                                            </div>                                              
                                             <div class="mt-2">
                                                 <h5 class="mb-75">Contact Me:</h5>
                                                 <a class="badge badge-pill badge-light-danger" href="../chat/app-chat.php?incoming_id=<?= $user_id?>">Message Me</a>
@@ -341,110 +353,6 @@
                                             <div class="mt-2">
                                                 <p class="card-text">Experience 5</p>
                                                 <h5 class="mb-75"><?= $rows['exp_5']?></h5>
-                                            </div>
-                                            <div class="mt-2">
-                                                <p class="card-text">Resume</p>
-                                                <h5 class="mb-75">
-                                                    <a class="badge badge-pill badge-light-primary" href="../img/certificates/<?$rows['pdf_file']?>" download='<?= $rows['pdf_file']?>'><?= $rows['pdf_file']?></a></h5>
-                                            </div>
-                                            <div class="mt-2">
-                                                <p class="card-text">Cover Letter</p>
-                                                <h5 class="mb-75">
-                                                    <a class="badge badge-pill badge-light-primary" href="../img/certificates/<?= $rows['pdf_cover']?>" download='<?= $rows['pdf_cover']?>'><?= $rows['pdf_cover']?></a></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane grid-view" id="certificates" aria-labelledby="about-tab" role="tabpanel">
-                                        <h3 class="mb-75">Certificates</h3>
-                                        <div class="d-flex">
-                                            <div class="row g-1">
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_1']?>" class="rounded img-fluid"  alt="Card image" />
-                                                    </button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalCenterTitle">Certificates</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body d-flex justify-content-center">
-                                                                <div id="carousel-interval" class="carousel slide" data-ride="carousel" data-interval="5000">
-                                                                    <ol class="carousel-indicators">
-                                                                        <li data-target="#carousel-interval" data-slide-to="1" class="active"></li>
-                                                                        <li data-target="#carousel-interval" data-slide-to="2"></li>
-                                                                        <li data-target="#carousel-interval" data-slide-to="3"></li>
-                                                                        <li data-target="#carousel-interval" data-slide-to="4"></li>
-                                                                        <li data-target="#carousel-interval" data-slide-to="5"></li>
-                                                                        <li data-target="#carousel-interval" data-slide-to="6"></li>
-                                                                    </ol>
-                                                                    <div class="carousel-inner" role="listbox">
-                                                                        <div class="carousel-item active">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_1']?>" alt="First slide" />
-                                                                        </div>
-                                                                        <div class="carousel-item">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_2']?>" alt="Second slide" />
-                                                                        </div>
-                                                                        <div class="carousel-item">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_3']?>" alt="Third slide" />
-                                                                        </div>
-                                                                        <div class="carousel-item">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_4']?>" alt="Third slide" />
-                                                                        </div>
-                                                                        <div class="carousel-item">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_5']?>" alt="Third slide" />
-                                                                        </div>
-                                                                        <div class="carousel-item">
-                                                                            <img class="img-fluid" src="../img/certificates/<?= $rows['cert_6']?>" alt="Third slide" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <a class="carousel-control-prev" href="#carousel-interval" role="button" data-slide="prev">
-                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                        <span class="sr-only">Previous</span>
-                                                                    </a>
-                                                                    <a class="carousel-control-next" href="#carousel-interval" role="button" data-slide="next">
-                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                        <span class="sr-only">Next</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_2']?>" class="rounded img-fluid" alt="Card image" />
-                                                    </button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_3']?>" class="rounded img-fluid" alt="Card image" />
-                                                    </button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_4']?>" class="rounded img-fluid" alt="Card image" />
-                                                    </button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_5']?>" class="rounded img-fluid" alt="Card image" />
-                                                    </button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="col-lg">
-                                                    <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#exampleModalCenter">
-                                                        <img src="../img/certificates/<?= $rows['cert_6']?>" class="rounded img-fluid" alt="Card image" />
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

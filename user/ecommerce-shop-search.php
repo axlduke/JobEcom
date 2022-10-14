@@ -1,5 +1,6 @@
 <?php
     session_start();
+    header("Cache-Control: no cache");
     include "../auth/db.php";
     include "../auth/dbController.php";
     $db_handle = new DBController();
@@ -158,7 +159,7 @@
                     </ul>
                 </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$mode?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                     <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
@@ -306,7 +307,17 @@
                             <div class="row mt-1">
                                 <div class="col-sm-12">
                                     <div class="input-group input-group-merge">
-                                        <input name="search" type="text" class="form-control search-product" id="shop-search" placeholder="Search Product" aria-label="Search..." aria-describedby="shop-search" />
+                                        <input class="form-control search-product" list="search" type="text" class="form-control" placeholder="Search Here" name="search" aria-describedby="shop-search" autocomplete="off" />
+                                            <datalist id="search">
+                                                <?php
+                                                    $search_sql = "SELECT product_name FROM products";
+                                                    $search_result=mysqli_query($conn,$search_sql); 
+                                                    while($row = $search_result->fetch_array())
+                                                    {
+                                                        echo "<option value='".$row['product_name']."'></option>";
+                                                    }                                                    
+                                                ?>
+                                            </datalist>
                                         <div class="input-group-append">
                                             <button name="search_products" type="submit" class="input-group-text"><i data-feather="search" class="text-muted"></i></button>
                                         </div>

@@ -12,7 +12,7 @@ $sql = "UPDATE user SET restriction = 'Banned' WHERE user_id = '$uid'";
         $result = mysqli_query($conn, $sql); 
         if($result){
             $_SESSION['status_icon'] = "success";
-            $_SESSION['status_title'] = "Success!";
+            $_SESSION['status_title'] = "Account Banned!";
             $_SESSION['status_text'] = "You have successfully banned the user";
             header('location: ../../admin/admin-users-list.php');
 
