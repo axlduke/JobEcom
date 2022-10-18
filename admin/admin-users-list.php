@@ -246,7 +246,9 @@
                                                 <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['front_id'].'" alt="front img" />
                                                  <span>Identification: Back</span>
                                                 <img style="height:270px; width:450px;" class="img-fluid rounded mb-75" src="../img/valid_info/'.$row['back_id'].'" alt="back img" />';                                              
-                                            }        
+                                            } else{
+                                                $valid_id = '';
+                                            }   
                                                                                
                                             echo 
                                             '<tr>
@@ -257,154 +259,154 @@
                                                 <td>'.$row['email'].'</td>
                                                 <td>'.$row['address'].'</td>
                                                 <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
-                                                        <i data-feather="more-vertical"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                     <a class="dropdown-item" data-toggle="modal" data-target="#backdropid'.$uid.'">
-                                                            <i data-feather="image" mr-50></i>
-                                                            <span>View I.D.</span>
-                                                        </a>                                                       
-                                                        <a class="dropdown-item" data-toggle="modal" data-target="#backdrop'.$uid.'">
-                                                            <i data-feather="alert-triangle" mr-50></i>
-                                                            <span>Restrict</span>
-                                                        </a>                                                       
-                                                        <a class="dropdown-item" href="../auth/admin/admin-ban-account.php?uid='.$uid.'">
-                                                            <i data-feather="slash" class="mr-50"></i>
-                                                            <span>Ban</span>
-                                                        </a>                                                        
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                            <i data-feather="more-vertical"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#backdropid'.$uid.'">
+                                                                <i data-feather="image" mr-50></i>
+                                                                <span>View I.D.</span>
+                                                            </a>                                                       
+                                                            <a class="dropdown-item" data-toggle="modal" data-target="#backdrop'.$uid.'">
+                                                                <i data-feather="alert-triangle" mr-50></i>
+                                                                <span>Restrict</span>
+                                                            </a>                                                       
+                                                            <a class="dropdown-item" href="../auth/admin/admin-ban-account.php?uid='.$uid.'">
+                                                                <i data-feather="slash" class="mr-50"></i>
+                                                                <span>Ban</span>
+                                                            </a>                                                        
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- Restric Account       -->
-                                                            <div style="text-align: right;">
-                                                                <div class="disabled-backdrop-ex">
-                                                                    <!-- Button trigger modal -->
-                                                                <!-- Modal -->
-                                                                <div class="modal fade text-left" id="backdrop'.$uid.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                 <h4 class="modal-title" id="myModalLabel4">Restrict Account</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                     <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                    <div class="modal-body">
-                                                                        <section id="multiple-column-form">
-                                                                            <div class="row">
-                                                                                <div class="col-12">
-                                                                                    <div class="card-body">
-                                                                                    <form class="form form-vertical" action="../auth/admin/admin-restric-account.php" method="post">
-                                                                                        <div class="row">
-                                                                                            <div class="col-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="first-name-icon">First Name</label>
-                                                                                                    <div class="input-group input-group-merge">
-                                                                                                        <div class="input-group-prepend">
-                                                                                                            <span class="input-group-text"><i data-feather="user"></i></span>
-                                                                                                        </div>
-                                                                                                        <input type="text" id="first-name-icon" class="form-control" name="fname-icon" value="'.$row['fname'].'" disabled/>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="email-id-icon">Email</label>
-                                                                                                    <div class="input-group input-group-merge">
-                                                                                                        <div class="input-group-prepend">
-                                                                                                            <span class="input-group-text"><i data-feather="mail"></i></span>
-                                                                                                        </div>
-                                                                                                        <input type="email" id="email-id-icon" class="form-control" name="email-id-icon" value="'.$row['email'].'" disabled />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="contact-info-icon">Mobile</label>
-                                                                                                    <div class="input-group input-group-merge">
-                                                                                                        <div class="input-group-prepend">
-                                                                                                            <span class="input-group-text"><i data-feather="smartphone"></i></span>
-                                                                                                        </div>
-                                                                                                        <input type="number" id="contact-info-icon" class="form-control" name="contact-icon" value="'.$row['contact'].'" disabled />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="password-icon">Starting Date</label>
-                                                                                                    <div class="input-group input-group-merge">
-                                                                                                        <div class="input-group-prepend">
-                                                                                                            <span class="input-group-text"></span>
-                                                                                                        </div>
-                                                                                                        <input type="date" id="password-icon" class="form-control" name="starting_date" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-12">
-                                                                                                <div class="form-group">
-                                                                                                    <label for="password-icon">Ending Date</label>
-                                                                                                    <div class="input-group input-group-merge">
-                                                                                                        <div class="input-group-prepend">
-                                                                                                            <span class="input-group-text"></span>
-                                                                                                        </div>
-                                                                                                        <input type="date" id="password-icon" class="form-control" name="ending_date" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>                                                                                            
-                                                                                            <div class="col-12">
-                                                                                             <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
-                                                                                            </div>
-                                                                                            <div style="text-align:right;" class="col-12">
-                                                                                            <button type="reset" class="btn btn-outline-secondary" '.$disable.'>Reset</button>
-                                                                                            <button type="btn" name="restrict_button" class="btn btn-primary mr-1" '.$disable.'>Submit</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </form>
+                                                    <!-- Restric Account       -->
+                                                                <div style="text-align: right;">
+                                                                    <div class="disabled-backdrop-ex">
+                                                                        <!-- Button trigger modal -->
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade text-left" id="backdrop'.$uid.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="myModalLabel4">Restrict Account</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
                                                                                 </div>
-                                                                                    <!-- </div> -->
+                                                                        <div class="modal-body">
+                                                                            <section id="multiple-column-form">
+                                                                                <div class="row">
+                                                                                    <div class="col-12">
+                                                                                        <div class="card-body">
+                                                                                        <form class="form form-vertical" action="../auth/admin/admin-restric-account.php" method="post">
+                                                                                            <div class="row">
+                                                                                                <div class="col-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="first-name-icon">First Name</label>
+                                                                                                        <div class="input-group input-group-merge">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                                <span class="input-group-text"><i data-feather="user"></i></span>
+                                                                                                            </div>
+                                                                                                            <input type="text" id="first-name-icon" class="form-control" name="fname-icon" value="'.$row['fname'].'" disabled/>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="email-id-icon">Email</label>
+                                                                                                        <div class="input-group input-group-merge">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                                <span class="input-group-text"><i data-feather="mail"></i></span>
+                                                                                                            </div>
+                                                                                                            <input type="email" id="email-id-icon" class="form-control" name="email-id-icon" value="'.$row['email'].'" disabled />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="contact-info-icon">Mobile</label>
+                                                                                                        <div class="input-group input-group-merge">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                                <span class="input-group-text"><i data-feather="smartphone"></i></span>
+                                                                                                            </div>
+                                                                                                            <input type="number" id="contact-info-icon" class="form-control" name="contact-icon" value="'.$row['contact'].'" disabled />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="password-icon">Starting Date</label>
+                                                                                                        <div class="input-group input-group-merge">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                                <span class="input-group-text"></span>
+                                                                                                            </div>
+                                                                                                            <input type="date" id="password-icon" class="form-control" name="starting_date" />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label for="password-icon">Ending Date</label>
+                                                                                                        <div class="input-group input-group-merge">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                                <span class="input-group-text"></span>
+                                                                                                            </div>
+                                                                                                            <input type="date" id="password-icon" class="form-control" name="ending_date" />
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>                                                                                            
+                                                                                                <div class="col-12">
+                                                                                                <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
+                                                                                                </div>
+                                                                                                <div style="text-align:right;" class="col-12">
+                                                                                                <button type="reset" class="btn btn-outline-secondary" '.$disable.'>Reset</button>
+                                                                                                <button type="btn" name="restrict_button" class="btn btn-primary mr-1" '.$disable.'>Submit</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                        <!-- </div> -->
+                                                                                    </div>
                                                                                 </div>
+                                                                            </section>                                                                                                            
                                                                             </div>
-                                                                        </section>                                                                                                            
-                                                                        </div>
 
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <!-- Restrict Account        -->
-                                                    <!-- View ID       -->
-                                                            <div style="text-align: right;">
-                                                                <div class="disabled-backdrop-ex">
-                                                                <!-- Modal -->
-                                                                <div class="modal fade text-left" id="backdropid'.$uid.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                 <h4 class="modal-title" id="myModalLabel4">View ID</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                     <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                    <div class="modal-body">
-                                                                    '.$valid_id.'
+                                                        <br>
+                                                        <!-- Restrict Account        -->
+                                                        <!-- View ID       -->
+                                                                <div style="text-align: right;">
+                                                                    <div class="disabled-backdrop-ex">
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade text-left" id="backdropid'.$uid.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title" id="myModalLabel4">View ID</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                        <div class="modal-body">
+                                                                        '.$valid_id.'
+                                                                        </div>
+                                                                        <div style="text-align:right;" class="col-12">
+                                                                        <form method="POST" action="../auth/admin/verify-account-action.php">
+                                                                        <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
+                                                                        <input type="hidden" class="form-control" name="user_email" value="'.$row['email'].'"/>
+                                                                        '.$button.'
+                                                                        </form>
+                                                                        </div>
+                                                                        <br>                                                                    
                                                                     </div>
-                                                                    <div style="text-align:right;" class="col-12">
-                                                                    <form method="POST" action="../auth/admin/verify-account-action.php">
-                                                                    <input type="hidden" class="form-control" name="uid" value="'.$uid.'"/>
-                                                                    <input type="hidden" class="form-control" name="user_email" value="'.$row['email'].'"/>
-                                                                    '.$button.'
-                                                                    </form>
-                                                                    </div>
-                                                                    <br>                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <br>
-                                                    <!-- View ID        --> 
+                                                        <br>
+                                                        <!-- View ID        --> 
                                                 </td>
                                             </tr>';
                                         }

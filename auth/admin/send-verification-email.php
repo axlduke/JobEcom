@@ -43,9 +43,9 @@ if(isset($_SESSION['user_email'])){
       $mail->Body = '
       Hi '.$fname.'!<br>
       <br>
-      Your Account Verification has been Verified.<br>
+      Congratulations!<br>
       <br>
-      You can now use your account and login in JobEcom.<br>
+      Your account has been succesfully verified you may now use your account to login in JobEcom.<br>
       <br>
       If you have any questions, send us an email jobsecom2@gmail.com.<br>
       <br>

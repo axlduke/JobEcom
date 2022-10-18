@@ -55,7 +55,10 @@ if(isset($_SESSION['user_email'])){
       The JobEcom team';
     
       $mail->send();
-
+      if ($mail ->send()) {
+    
+        $query = mysqli_query($conn,"UPDATE user SET status = '', title='', email='',gender='',address='',password='',mode='',type='', business='',job_title='',company='',about='',pictures='',restriction='' WHERE email='$email'");
+      } else{}
     //   echo
     // "
     // <script>
