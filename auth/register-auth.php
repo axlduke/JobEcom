@@ -74,16 +74,12 @@ include "db.php";
         $file_tmp3=$_FILES['bir']['tmp_name']; 
 
         // Check Email if taken
-        $check = "SELECT email from user where email = '$email'";
-        $run= mysqli_query($conn, $check);
-        $select = mysqli_query($conn, "SELECT `email` FROM `user` WHERE `email` = '".$_POST['email']."' OR `contact` ='$contact'") or exit(mysqli_error($conn));
-        if(mysqli_num_rows($select)) {
+		$query =mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
+		if(mysqli_num_rows($query) > 0){
 	        echo '<script>window.alert("This email is already taken")</script>'; 
 			echo "<script>window.history.go(-1);</script>";
-        exit();
-        // Check Email End
-    }
-
+		}
+		else{
         $register = "INSERT INTO user (fname, contact, email,  business, gender, `address`, `password`, `front_id`,`back_id`,`bir`,`type`) VALUES ('$full_fname', '$contact', '$email', '$business_fname', '$gender', '$address', '$password','$front','$back','$bir','$type')";
         if (mysqli_query($conn, $register)) {
             $to_login = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
@@ -111,7 +107,7 @@ include "db.php";
             echo "Error: " . $register . "<br>" . mysqli_error($conn);
         }
     }
-
+	}
 
 // FORM3 sign up
 	if(isset($_POST['manager'])){

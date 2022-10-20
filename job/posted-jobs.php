@@ -221,7 +221,17 @@
                                                                             </div>                     
                                                                             <div class="form-group">
                                                                                 <label for="product-name-column">Job Title</label>
-                                                                                <input type="text" class="form-control"  name="job_title" required />
+                                                                                <input list="search" type="text" class="form-control"  name="job_title" required  autocomplete="off"/>
+                                                                                <datalist id="search">
+                                                                                    <?php
+                                                                                        $search_sql = "SELECT job_title FROM jobs_post";
+                                                                                        $search_result=mysqli_query($conn,$search_sql); 
+                                                                                        while($row = $search_result->fetch_array())
+                                                                                        {
+                                                                                            echo "<option value='".$row['job_title']."'></option>";
+                                                                                        }                                                    
+                                                                                    ?>
+                                                                                </datalist>
                                                                             </div>
                                                                         <label for="email-id-column">Job Experience</label>
                                                                         <textarea name="job_experience" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type here."required></textarea>

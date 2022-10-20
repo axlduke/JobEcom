@@ -352,6 +352,9 @@
                                     group by similar.job_id 
                                     ";
                                     $result = $conn->query($sql);
+                                    $i=0;
+                                    $b = "&#8226;    ";
+                                    $dot = ".";
                                     while($rows = $result->fetch_array()){
                                         $jid = $rows['job_id'];
                                         $jobs_related="SELECT *,SUBSTRING(jobs_post.job_about, 1, 170) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 45) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id where jobs_post.post_id = '$jid' order by rand()"; 
@@ -359,7 +362,8 @@
                                          while($row = mysqli_fetch_array($results)) { 
                                             $post_id = $row['post_id'];
                                             $date_posted = $row['date_posted'];
-                                            $employer_id = $row['employer_id'];                                               
+                                            $employer_id = $row['employer_id'];  
+                                            $arr_string = explode(",",$row['qualification']);                                             
                                 ?>  
                                 <div class="swiper-slide">
                                 <div class="border">
@@ -377,13 +381,19 @@
                                                 </div>                    
                                             </div>
                                             <h5 class="apply-job-title"><?=$row['job_title']?></h5>
-                                            <p class="card-text mb-2">
+                                            <p class="card-text mb-2" style="text-align: justify;">
                                                 <?=$row['job_about']?>
                                             </p>
                                             <div class="apply-job-package bg-light-primary rounded">
                                                 <div><div class="badge badge-pill badge-light-primary">Qualifications :</div>
-                                                    <div>
-                                                    <sub class="text-body"><small><?=$row['qualification']?></small></sub>
+                                                    <div class="text-truncate" style="width: 280px;">
+                                                    <sub class="text-body"><small>
+                                                    <?php   
+                                                        foreach($arr_string as $str){
+                                                            echo $b. $str . "<br />";
+                                                        }
+                                                    ?> 
+                                                    </small></sub>
                                                     </div>
                                                 </div>
                                             </div>
@@ -451,18 +461,18 @@
                                     </div>                    
                                 </div>
                                 <h5 class="apply-job-title"><?=$row['job_title']?></h5>
-                                <p class="card-text mb-2">
+                                <p class="card-text mb-2" style="text-align: justify;">
                                     <?=$row['job_about']?>
                                 </p>
                                 <div class="apply-job-package bg-light-primary rounded">
                                     <div><div class="badge badge-pill badge-light-primary">Qualifications :</div>
-                                        <div>
-                                        <sub class="text-body"><small>
+                                        <div class="text-truncate" style="width: 300px;">
+                                            <sub class="text-body"><small>
                                             <?php   
-                                          foreach($arr_string as $str){
-                                                echo $b. $str . "<br />";
-                                            }
-                                            ?>  
+                                                foreach($arr_string as $str){
+                                                    echo $b. $str . "<br />";
+                                                }
+                                            ?> 
                                             </small></sub>
                                         </div>
                                     </div>

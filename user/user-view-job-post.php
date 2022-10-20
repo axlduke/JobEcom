@@ -329,18 +329,18 @@
                                                 <small><a href="javascript:void(0);" class="text-body">Company: <?= $r['job_company']?></a></small>
                                             </div>
                                         </div>
-                                        <div class="my-1 py-25" style="text-align: center;">
+                                        <div class="my-1 py-25" style="text-align: justify;">
                                         <h7 class="card-title"><?= $r['job_title']?></h7><br>
                                         </div>
-                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
+                                        <p class="card-text mt-2 mb-2"  sstyle="text-align: justify;">
                                             <h7 class="card-title">Job Experience</h7><br>
                                             <?= $r['job_experience']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: justify;">
                                             <h7 class="card-title">Job Qualification</h7><br>
                                             <?= $r['job_qualification']?>
                                         </p>
-                                        <p class="card-text mt-2 mb-2"  style="text-align: center;">
+                                        <p class="card-text mt-2 mb-2"  style="text-align: justify;">
                                             <h7 class="card-title">Job About</h7><br>
                                             <?= $r['job_about']?>
                                         </p>

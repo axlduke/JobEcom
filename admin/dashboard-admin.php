@@ -185,7 +185,13 @@
                                     <li class="breadcrumb-item"><a href="#">Charts</a>
                                     </li>
                                 </ol>
+                                <!-- <li class="breadcrumb-item "><a href="#">
+                                    </a>
+                                </li> -->
                             </div>
+                            <button onclick="window.print();" class="content-body btn btn-primary float-right">
+                                PrintData
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -413,7 +419,7 @@
                     data.addColumn('number', 'Users');
                     var dataArray = [];
                     $.each(result, function(i, obj) {
-                        dataArray.push([ obj.company, parseInt(obj.Number) ]);
+                        dataArray.push([ obj.fname, parseInt(obj.Number) ]);
                     });
 
                     data.addRows(dataArray);

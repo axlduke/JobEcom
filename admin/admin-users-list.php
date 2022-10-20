@@ -204,7 +204,7 @@
 
                                     <tbody>
                                     <?php
-                                        $sql_query = "SELECT * FROM user WHERE type != 0 order by total_violation ASC";
+                                        $sql_query = "SELECT * FROM user WHERE type != 0";
                                         $result = $conn->query($sql_query);
                                         while($row = $result->fetch_array()){
                                             $uid =$row['user_id'];
