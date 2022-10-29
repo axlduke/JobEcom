@@ -356,7 +356,7 @@
                                     $dot = ".";
                                     while($rows = $result->fetch_array()){
                                         $jid = $rows['job_id'];
-                                        $jobs_related="SELECT *,SUBSTRING(jobs_post.job_about, 1, 170) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 45) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id where jobs_post.post_id = '$jid' order by rand()"; 
+                                        $jobs_related="SELECT *,user.company as company,SUBSTRING(jobs_post.job_about, 1, 170) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 45) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id where jobs_post.post_id = '$jid' order by rand()"; 
                                          $results=mysqli_query($conn,$jobs_related);           
                                          while($row = mysqli_fetch_array($results)) { 
                                             $post_id = $row['post_id'];
@@ -366,7 +366,7 @@
                                 ?>  
                                 <div class="swiper-slide">
                                 <div class="border">
-                                    <div class="card card-apply-job">
+                                    <div class="card-apply-job">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-1">
                                                 <div class="media">
@@ -375,7 +375,7 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="mb-0"><?=$row['fname']?></h5>
-                                                        <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['job_company']?></div> 
+                                                        <small class="text-muted"><?=$row['date_posted']?></small><br><div class="badge badge-pill badge-light-primary"><?=$row['company']?></div> 
                                                     </div>
                                                 </div>                    
                                             </div>
@@ -391,11 +391,14 @@
                                                         foreach($arr_string as $str){
                                                             echo $b. $str . "<br />";
                                                         }
+
                                                     ?> 
+                                                 
                                                     </small></sub>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p>
                                             <form action="../auth/jobs/apply-auth.php" method="post" role="form">
                                                 <input name="employer_id" class="hidden" type="text" value="<?=$employer_id?>">
                                                 <input name="job_id" class="hidden" type="text" value="<?php echo $post_id?>">
@@ -433,7 +436,7 @@
                 <div class="row match-height">
                     <!-- Apply Job Card -->
                 <?php
-                    $jobs_posted="SELECT *,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id order by rand()";
+                    $jobs_posted="SELECT *,user.company as company,SUBSTRING(jobs_post.job_about, 1, 177) as job_about,SUBSTRING_INDEX(jobs_post.job_qualification, ',', 3) as qualification,SUBSTRING(jobs_post.job_title, 1, 60) as job_title from jobs_post inner join user on user.user_id = jobs_post.employer_id order by rand()";
                     $result=mysqli_query($conn,$jobs_posted);
                     if (mysqli_num_rows($result) > 0) {
                     $i=0;

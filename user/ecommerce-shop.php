@@ -392,6 +392,8 @@
                                     <div class="swiper-slide">
  
                                         <a href="ecommerce-details.php?p=<?=$product_id?>&sell=<?=$total?>&seller=<?=$seller_id?>">
+                                            <div class="card-body">
+                                                <div class="item-wrapper">
                                             <div class="img-container w-60 mx-auto py-75">
                                                 <img src="../img/product/<?= $file1?>" class="img-fluid" alt="image" />
                                             </div>
@@ -412,12 +414,13 @@
                                                     } else {echo $_SESSION['total'] = '<span class="badge badge-pill badge-light-warning">' .$total.' SOLD</span>'; }?>
                                                     </li>
                                                 </ul>
-                                                                                            <div class="item-heading">
+                                                <div class="item-heading">
                                                 <h5 class="text-truncate mb-0"><?php echo $get_products['product_name']; ?></h5>
                                                 <small class="text-body">Brand: <?= $brand?></small>
                                             </div>
-                                                <p class="card-text text-primary mb-0">₱<?= $price?></p>
+                                                <h6 class="badge badge-pill badge-light-info">₱<?= number_format($price, 2, '.', ',') ?></h6>
                                             </div>
+                                            </div></div>
                                         </a>
 
                                     </div>
