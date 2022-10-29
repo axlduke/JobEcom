@@ -16,6 +16,7 @@
         $pictures = $row['pictures'];
         $shop_name = $row['business'];
         require_once('../auth/db.php');
+        $theme =$row['theme'];
         if($_SESSION['type']==2){
         }
         else{
@@ -44,7 +45,7 @@
     }    
 ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>

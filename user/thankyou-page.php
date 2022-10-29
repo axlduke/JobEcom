@@ -17,6 +17,7 @@
         $title = $row['title'];
         $mode = $row['mode'];
         $pictures = $row['pictures'];
+        $theme =$row['theme'];
         require_once('../auth/db.php');
         if($_SESSION['type']==1){
         }
@@ -26,7 +27,7 @@
     }
 ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>

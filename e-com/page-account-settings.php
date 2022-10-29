@@ -18,7 +18,9 @@
         $contact = $row['contact'];
         $title = $row['title'];
         $mode = $row['mode'];
+        $theme =$row['theme'];
         $pictures = $row['pictures'];
+        $shop_name = $row['business'];
         require_once('../auth/db.php');
         if($_SESSION['type']==2){
         }
@@ -29,7 +31,7 @@
     
 ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -87,10 +89,9 @@
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$shop_name?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
-                    <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>                       
                     <a class="dropdown-item" href="../auth/logout.php"><i class="mr-50" data-feather="power"></i> Logout</a>
                     </div>
                 </li>
@@ -314,6 +315,18 @@
                                                             <input type="text" class="form-control" id="account-contact" name="contact" value="<?= $contact?>" pattern="[0-9]{11}" maxlength="11" required/>
                                                         </div>
                                                     </div>
+                                                <div class="col-12 col-sm-6">    
+                                                    <div class="form-group">    
+                                                    <label for="theme">Theme</label>
+
+                                                    <select class="btn btn-outline-primary btn-sm dropdown-toggle" name="theme" id="theme">
+                                                      <option value="<?=$theme?>" selected style="display: none;">Choose Theme</option>  
+                                                      <option value="loaded light-layout">Light Mode</option>
+                                                      <option value="loaded dark-layout">Dark Mode</option>
+                                                      <option value="loaded semi-dark-layout">Semi Dark Mode</option>
+                                                    </select> 
+                                                    </div> 
+                                                </div>                                                     
                                                     <div class="col-12">
                                                         <input name="user_id" type="text" class="hidden" value="user_id">
                                                         <button name="updateProfile" type="submit" class="btn btn-primary mt-2 mr-1">Save changes</button>

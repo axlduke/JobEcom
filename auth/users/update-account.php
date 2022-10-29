@@ -17,10 +17,11 @@
         $email = trim(mysqli_real_escape_string($conn, $_POST['email']));
         $address = trim(mysqli_real_escape_string($conn, $_POST['address']));
         $mode = $_POST['mode'];
+        $theme = $_POST['theme'];
         $about = trim(mysqli_real_escape_string($conn, $_POST['about']));
     
         $sql1 = "UPDATE user SET title = '$title', fname = '$fname', contact = '$contact', email = '$email', `address` = '$address', mode = '$mode', about = '$about',
-        pictures = '$file1' WHERE `user_id` ='$user_id'";
+        pictures = '$file1', theme = '$theme' WHERE `user_id` ='$user_id'";
         $result = mysqli_query($conn, $sql1);
         if($result){
             if ($_FILES['profile']['size'] == 0 && $_FILES['profile']['error'] == 0){

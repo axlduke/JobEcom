@@ -18,6 +18,8 @@
         $address = $row['address'];
         $mode = $row['mode'];
         $pictures = $row['pictures'];
+        $theme =$row['theme'];
+        $shop_name = $row['business'];
         require_once('../auth/db.php');
         if($_SESSION['type']==2){
         }
@@ -27,7 +29,7 @@
     }
 ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -78,87 +80,10 @@
                 </ul>
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
-                <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
-                <li class="nav-item dropdown dropdown-cart mr-25"><a class="nav-link" href="javascript:void(0);" data-toggle="dropdown"><i class="ficon" data-feather="shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count"><?php 
-                                $post = mysqli_query($conn, "SELECT * FROM cart WHERE `user_id` =".$user_id);
-                                $rows1 = mysqli_num_rows($post);
-                                echo ''.$rows1.''?></span></a>
-                    <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                        <li class="dropdown-menu-header">
-                            <div class="dropdown-header d-flex">
-                                <h4 class="notification-title mb-0 mr-auto">My Cart</h4>
-                                <div class="badge badge-pill badge-light-primary"><?php 
-                                $post = mysqli_query($conn, "SELECT * FROM cart WHERE `user_id` =".$user_id);
-                                $rows1 = mysqli_num_rows($post);
-                                echo ''.$rows1.' Items'?></div>
-                            </div>
-                        </li>
-                        <?php
-                            $products_posted="SELECT * from cart WHERE user_id ='$user_id'";                
-                            $results=mysqli_query($conn,$products_posted);      
-                                $cartTotal = 0;           
-                                while($row = $results -> fetch_assoc()){
-                                    $user_cart = $row['user_id'];
-                                    $products_ordered="SELECT * from products WHERE product_id = ".$row['product_id'];  
-                                    $res=mysqli_query($conn,$products_ordered);
-                                    while($fetch = $res-> fetch_assoc()){     
-                                        $product_category = $fetch['product_category'];
-                                        $file1 = $fetch['file1'];
-                                        $cartTotal += ($fetch["price"] * $row["quantity"] );  
-                                        // $totalPayment += ($cartTotal + $row['shipping_fee']);  
-                                        $shipping_fee = $fetch['shipping_fee'];
-                                        if($product_category > 0){
-                                            if(isset($_SESSION['cart']) && is_array($_SESSION['cart'])){
-                                                if (array_key_exists($product_id, $_SESSION['cart'])){
-                                                    $_SESSION['cart'][$product_id];
-                                                }
-                                            }
-                                        }
-                        ?> 
-                            <li class="scrollable-container media-list">
-                                <div class="media align-items-center"><img class="d-block rounded mr-1" src="../img/product/<?= $fetch['file1']?>"   width="62">
-                                    <div class="media-body" id="remove<?php echo $item["brand"]; ?>" ><a href="ecommerce-details.php?p=<?= $fetch['product_id'];?>&seller=<?php echo $fetch['seller_id'] ?>" ></a>
-                                        <div class="media-heading">
-                                            <h6 class="cart-item-title"><a class="text-body" href="ecommerce-details.php"><?= $fetch['product_name']?></a></h6>
-                                        </div>
-                                        <div class="cart-item-qty">
-                                            <div class="input-group">
-                                                <?php echo $row['quantity'] ?>
-                                            </div>
-                                        </div>
-                                        <h5 class="cart-item-price"><?php echo "₱".$fetch['price'] ?></h5>
-                                        <h5><a class="badge badge-pill badge-light-danger" href="../auth/users/delete-item-cart.php?i=<?php echo $row['cart_id']?>">DELETE</a></h5>
-                                    </div>
-                                </div>
-                            </li>
-                            <?php }}?>
-                            <li class="dropdown-menu-footer">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <h6 class="font-weight-bolder mb-0">Total:</h6>
-                                    <h6 class="text-primary font-weight-bolder mb-0">₱<?php echo number_format($cartTotal, 2, '.', ',') ?></h6>
-                                </div><?php 
-                                        if($cartTotal > 0){
-                                            echo '<a href="ecommerce-checkout.php">
-                                            <button name="check-out" class="btn btn-primary btn-block">
-                                                Check Out
-                                            </button>
-                                        </a>';
-                                        } else{
-                                            echo '<a href="#_">
-                                            <button name="check-out" class="btn btn-primary btn-block" disable>
-                                                Check Out
-                                            </button>
-                                        </a>';
-                                        }
-                                    ?>
-                            </li>
-                    </ul>
-                </li>
                     <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status">User</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname ?></span><span class="user-status"><?=$shop_name?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
-                    <a class="dropdown-item nav-link nav-link-style ml-50"><i class="mr-50" data-feather="moon"></i> Theme</a>                        
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>                       
                     <a class="dropdown-item" href="../auth/logout.php"><i class="mr-50" data-feather="power"></i> Logout</a>
                     </div>
                 </li>

@@ -24,11 +24,12 @@ if(!$conn){
         $contact = $row['contact'];
         $mode = $row['mode'];
         $pictures = $row['pictures'];
+        $theme = $row['theme'];
         require_once('../auth/db.php');
     } 
 ?>
 <!DOCTYPE html>
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-layout="dark-layout" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>

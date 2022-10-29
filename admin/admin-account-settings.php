@@ -13,7 +13,9 @@
         $user_id = $row['user_id'];
         $fname = $row['fname'];
         $contact = $row['contact'];
+        $email = $row['email'];
         $pictures = $row['pictures'];
+        $theme = $row['theme']; 
         require_once('../auth/db.php');
         if($_SESSION['type']==0){
         }
@@ -236,15 +238,27 @@
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-name">Full Name</label>
-                                                            <input type="text" class="form-control" id="account-name" name="fname" value="" required/>
+                                                            <input type="text" class="form-control" id="account-name" name="fname" value="<?=$fname?>" required/>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <div class="form-group">
                                                             <label for="account-e-mail">E-mail</label>
-                                                            <input type="email" class="form-control" id="account-e-mail" name="email" value="" required/>
+                                                            <input type="email" class="form-control" id="account-e-mail" name="email" value="<?=$email?>" required/>
                                                         </div>
-                                                    </div>
+                                                    </div>    
+                                                <div class="col-12 col-sm-6">    
+                                                    <div class="form-group">    
+                                                    <label for="theme">Theme</label>
+
+                                                    <select name="theme" id="theme">
+                                                    <option selected="<?=$theme?>" hidden></option>
+                                                      <option value="loaded light-layout">Light Mode</option>
+                                                      <option value="loaded dark-layout">Dark Mode</option>
+                                                      <option value="loaded semi-dark-layout">Semi Dark Mode</option>
+                                                    </select> 
+                                                    </div> 
+                                                </div>                                                                                 
                                                     <div class="col-12">
                                                         <input name="user_id" type="text" class="hidden" value="user_id">
                                                         <button type="submit" class="btn btn-primary mt-2 mr-1">Save changes</button>

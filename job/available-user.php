@@ -15,11 +15,13 @@
         $contact = $row['contact'];
         $pictures = $row['pictures'];
         $email = $row['email'];
+        $company = $row['company'];
         $title = $row['title'];
         $about = $row['about'];
         $address = $row['address'];
         $mode = $row['mode'];
         $pictures = $row['pictures'];
+        $theme =$row['theme'];
         require_once('../auth/db.php');
         if($_SESSION['type']==3){
         }
@@ -62,7 +64,7 @@
     }   
 ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="<?=$theme?>" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -117,9 +119,8 @@
                 </ul>
             </div>
             <ul class="nav navbar-nav align-items-center ml-auto">
-                <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname?></span><span class="user-status">Employer</span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder"><?= $fname?></span><span class="user-status"><?= $company?></span></div><span class="avatar"><img class="round" src="../img/profile/<?= $pictures?>" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="user-profile.php"><i class="mr-50" data-feather="user"></i> Profile</a>
                         <div class="dropdown-divider"></div><a class="dropdown-item" href="../auth/logout.php"><i class="mr-50" data-feather="power"></i> Logout</a>
